@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Beacon Mission Manager</string>
+    <string name="settings">Settings</string>
+    <string name="noapikey">No API Key</string>
+    <string name="apikey">API Key: </string>
+</resources>

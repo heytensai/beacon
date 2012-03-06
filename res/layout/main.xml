@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+        >
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:text="API Key"
+        android:textSize="10sp"
+        android:visibility="gone"
+        />
+    <TextView
+            android:id="@+id/apikey"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/noapikey"
+            android:textSize="16sp"
+            android:visibility="gone"
+            />
+    <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:text="Current Mission"
+            android:textSize="10sp"
+            />
+    <TextView
+            android:id="@+id/mission"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Click to select mission"
+            android:textSize="16sp"
+            />
+    <TabHost xmlns:android="http://schemas.android.com/apk/res/android"
+             android:id="@android:id/tabhost"
+             android:layout_width="fill_parent"
+             android:layout_height="fill_parent"
+             android:layout_weight="2"
+            >
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:padding="5dp">
+            <TabWidget
+                    android:id="@android:id/tabs"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" />
+            <FrameLayout
+                    android:id="@android:id/tabcontent"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:padding="5dp" />
+        </LinearLayout>
+    </TabHost>
+</LinearLayout>

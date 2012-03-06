@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:orientation="vertical"
+    >
+    <ScrollView
+            android:layout_height="fill_parent"
+            android:layout_width="fill_parent"
+            >
+        <LinearLayout
+                      android:layout_width="fill_parent"
+                      android:layout_height="fill_parent"
+                      android:orientation="vertical"
+                >
+            <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:text="Team Number"
+                    />
+            <TextView
+                    android:id="@+id/teamNumber"
+                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:text="No Data"
+                    android:textSize="16sp"
+                    android:padding="10dp"
+                    />
+            <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:text="Team Type"
+                    />
+            <TextView
+                    android:id="@+id/teamType"
+                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:text="No Data"
+                    android:textSize="16sp"
+                    android:padding="10dp"
+                    />
+            <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:text="Team Members"
+                    />
+            <TextView
+                    android:id="@+id/teamMembers"
+                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:text="No Data"
+                    android:textSize="16sp"
+                    android:padding="10dp"
+                    />
+            <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:text="Team Objectives"
+                    />
+            <TextView
+                    android:id="@+id/teamObjectives"
+                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:text="No Data"
+                    android:textSize="16sp"
+                    android:padding="10dp"
+                    />
+            <Button
+                    android:id="@+id/refresh"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Refresh"
+                    />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

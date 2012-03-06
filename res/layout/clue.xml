@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:orientation="vertical"
+        >
+    <ScrollView
+            android:layout_height="fill_parent"
+            android:layout_width="fill_parent"
+            >
+        <LinearLayout
+                      android:layout_width="fill_parent"
+                      android:layout_height="fill_parent"
+                      android:orientation="vertical"
+                >
+            <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:text="Clue Name"
+                    />
+            <EditText
+                    android:id="@+id/clueName"
+                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:text=""
+                    android:textSize="16sp"
+                    android:padding="10dp"
+                    android:nextFocusDown="@+id/clueDescription"
+                    android:singleLine="true"
+                    />
+            <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:text="Clue Description"
+                    />
+            <EditText
+                    android:id="@+id/clueDescription"
+                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:text=""
+                    android:textSize="16sp"
+                    android:padding="10dp"
+                    android:nextFocusDown="@+id/clueFoundBy"
+                    android:singleLine="true"
+                    />
+            <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:text="Found By"
+                    />
+            <EditText
+                    android:id="@+id/clueFoundBy"
+                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:text=""
+                    android:textSize="16sp"
+                    android:padding="10dp"
+                    android:nextFocusDown="@+id/clueLocation"
+                    android:singleLine="true"
+                    />
+            <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:text="Found At (location)"
+                    />
+            <EditText
+                    android:id="@+id/clueLocation"
+                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:text=""
+                    android:textSize="16sp"
+                    android:padding="10dp"
+                    android:nextFocusDown="@+id/clueSend"
+                    android:singleLine="true"
+                    />
+            <Button
+                    android:id="@+id/clueSend"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Add Clue"
+                    android:enabled="false"
+                    />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
