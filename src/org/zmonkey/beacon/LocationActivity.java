@@ -38,7 +38,7 @@ public class LocationActivity extends Activity {
             public void handleMessage(Message msg) {
                 //Toast.makeText(getApplicationContext(), MainActivity.API_REQUESTS[msg.what] + "-/-" + (String) msg.obj, Toast.LENGTH_SHORT).show();
                 switch (msg.what) {
-                    case MainActivity.REQUEST_POST_LOCATION:
+                    case RadishworksConnector.REQUEST_POST_LOCATION:
                         locationPosted((String) msg.obj);
                         break;
                 }
@@ -102,8 +102,8 @@ public class LocationActivity extends Activity {
         }
         String lat = Double.toString(MainActivity.main.currentLocation.getLatitude());
         String lon = Double.toString(MainActivity.main.currentLocation.getLongitude());
-        String params = MainActivity.API_LATITUDE + lat + "&" + MainActivity.API_LONGITUDE + lon;
-        MainActivity.main.apiCall(MainActivity.REQUEST_POST_LOCATION, h, params);
+        String params = RadishworksConnector.API_LATITUDE + lat + "&" + RadishworksConnector.API_LONGITUDE + lon;
+        RadishworksConnector.apiCall(RadishworksConnector.REQUEST_POST_LOCATION, this, h, params);
     }
 
     private String trimCoord(String coord){

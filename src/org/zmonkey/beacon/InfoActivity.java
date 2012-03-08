@@ -4,10 +4,15 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * User: corey
@@ -38,11 +43,11 @@ public class InfoActivity extends Activity {
     }
 
     public void loadMissionDetails(){
-        MainActivity.main.apiCall(MainActivity.REQUEST_TEAM_NUMER, h);
-        MainActivity.main.apiCall(MainActivity.REQUEST_TEAM_MEMBERS, h);
-        MainActivity.main.apiCall(MainActivity.REQUEST_TEAM_TYPE, h);
-        MainActivity.main.apiCall(MainActivity.REQUEST_TEAM_OBJECTIVES, h);
-        MainActivity.main.apiCall(MainActivity.REQUEST_TEAM_NOTES, h);
+        RadishworksConnector.apiCall(RadishworksConnector.REQUEST_TEAM_NUMER, this, h);
+        RadishworksConnector.apiCall(RadishworksConnector.REQUEST_TEAM_MEMBERS, this, h);
+        RadishworksConnector.apiCall(RadishworksConnector.REQUEST_TEAM_TYPE, this, h);
+        RadishworksConnector.apiCall(RadishworksConnector.REQUEST_TEAM_OBJECTIVES, this, h);
+        RadishworksConnector.apiCall(RadishworksConnector.REQUEST_TEAM_NOTES, this, h);
     }
 
     private void setupCallbackHandler(){
@@ -51,13 +56,12 @@ public class InfoActivity extends Activity {
             public void handleMessage(Message msg) {
                 //Toast.makeText(getApplicationContext(), MainActivity.API_REQUESTS[msg.what] + "-/-" + (String) msg.obj, Toast.LENGTH_SHORT).show();
                 switch (msg.what) {
-                    case MainActivity.REQUEST_TEAM_NUMER:
+                    case RadishworksConnector.REQUEST_TEAM_NUMER:
                     {
-                        TextView t = (TextView) findViewById(R.id.teamNumber);
-                        t.setText((String) msg.obj);
+                        MainActivity.team.number = Integer.parseInt((String) msg.obj);
                     }
                     break;
-                    case MainActivity.REQUEST_TEAM_MEMBERS:
+                    case RadishworksConnector.REQUEST_TEAM_MEMBERS:
                     {
                         TextView t = (TextView) findViewById(R.id.teamMembers);
                         String s = (String) msg.obj;
@@ -65,23 +69,30 @@ public class InfoActivity extends Activity {
                         t.setText(s);
                     }
                     break;
-                    case MainActivity.REQUEST_TEAM_TYPE:
+                    case RadishworksConnector.REQUEST_TEAM_TYPE:
                     {
-                        TextView t = (TextView) findViewById(R.id.teamType);
-                        t.setText((String) msg.obj);
+                        MainActivity.team.type = (String) msg.obj;
                     }
                     break;
-                    case MainActivity.REQUEST_TEAM_OBJECTIVES:
+                    case RadishworksConnector.REQUEST_TEAM_OBJECTIVES:
                     {
                         TextView t = (TextView) findViewById(R.id.teamObjectives);
                         t.setText((String) msg.obj);
                     }
                     break;
-                    case MainActivity.REQUEST_TEAM_NOTES:
+                    case RadishworksConnector.REQUEST_TEAM_NOTES:
                     {
                     }
                     break;
                 }
+
+                String teamInfo = Integer.toString(MainActivity.team.number);
+                if (MainActivity.team.type != null){
+                    teamInfo = teamInfo + " - " + MainActivity.team.type;
+                }
+                TextView t = (TextView) findViewById(R.id.teamNumber);
+                t.setText(teamInfo);
+
                 super.handleMessage(msg);
                 Button b;
                 b = (Button) findViewById(R.id.refresh);

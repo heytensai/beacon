@@ -2,6 +2,7 @@ package org.zmonkey.beacon;
 
 
 import android.app.Activity;
+import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -65,7 +66,7 @@ public class ClueActivity extends Activity {
             public void handleMessage(Message msg) {
                 //Toast.makeText(getApplicationContext(), MainActivity.API_REQUESTS[msg.what] + "-/-" + (String) msg.obj, Toast.LENGTH_SHORT).show();
                 switch (msg.what) {
-                    case MainActivity.REQUEST_POST_CLUE:
+                    case RadishworksConnector.REQUEST_POST_CLUE:
                         cluePosted((String) msg.obj);
                         break;
                 }
@@ -85,7 +86,6 @@ public class ClueActivity extends Activity {
         t.setEnabled(enabled);
         t = (EditText) findViewById(R.id.clueFoundBy);
         t.setEnabled(enabled);
-
     }
 
     public void clueNameChanged(EditText t, Button b){
@@ -95,6 +95,22 @@ public class ClueActivity extends Activity {
         else{
             b.setEnabled(false);
         }
+    }
+
+    public Clue makeClue(Location location){
+        Clue c = new Clue();
+        EditText t;
+        t = (EditText) findViewById(R.id.clueName);
+        c.name = t.getText().toString();
+        t = (EditText) findViewById(R.id.clueDescription);
+        c.description = t.getText().toString();
+        t = (EditText) findViewById(R.id.clueLocation);
+        c.foundAt = t.getText().toString();
+        t = (EditText) findViewById(R.id.clueFoundBy);
+        c.foundBy = t.getText().toString();
+        c.location = location;
+
+        return c;
     }
 
     private void cluePosted(String msg){
@@ -109,7 +125,7 @@ public class ClueActivity extends Activity {
             t.setText("");
             t = (EditText) findViewById(R.id.clueFoundBy);
             t.setText("");
-            Toast.makeText(getApplicationContext(), "Clue posted", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(), "Clue posted", Toast.LENGTH_SHORT).show();
         }
         else{
             Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
@@ -117,46 +133,9 @@ public class ClueActivity extends Activity {
     }
 
     public void sendClue(){
-        EditText t;
-        t = (EditText) findViewById(R.id.clueName);
-        String clueName = t.getText().toString();
-        t = (EditText) findViewById(R.id.clueDescription);
-        String clueDescription = t.getText().toString();
-        t = (EditText) findViewById(R.id.clueLocation);
-        String clueLocation = t.getText().toString();
-        t = (EditText) findViewById(R.id.clueFoundBy);
-        String clueFoundBy = t.getText().toString();
+        Clue c = makeClue(MainActivity.main.currentLocation);
 
-        StringBuffer s = new StringBuffer();
-        s.append(MainActivity.API_CLUE_NAME);
-        s.append(URLEncoder.encode(clueName));
-        s.append("&");
-        s.append(MainActivity.API_CLUE_DESCRIPTION);
-        s.append(URLEncoder.encode(clueDescription));
-        s.append("&");
-        s.append(MainActivity.API_CLUE_LOCATION);
-        s.append(URLEncoder.encode(clueLocation));
-        s.append("&");
-        s.append(MainActivity.API_CLUE_FOUNDBY);
-        s.append(URLEncoder.encode(clueFoundBy));
-
-        if (MainActivity.main.currentLocation != null){
-            String lat = Double.toString(MainActivity.main.currentLocation.getLatitude());
-            s.append("&");
-            s.append(MainActivity.API_LATITUDE);
-            s.append(lat);
-            String lon = Double.toString(MainActivity.main.currentLocation.getLongitude());
-            s.append("&");
-            s.append(MainActivity.API_LONGITUDE);
-            s.append(lon);
-        }
-        else{
-            s.append("&");
-            s.append(MainActivity.API_LATITUDE);
-            s.append("&");
-            s.append(MainActivity.API_LONGITUDE);
-        }
-
-        MainActivity.main.apiCall(MainActivity.REQUEST_POST_CLUE, h, s.toString());
+        Toast.makeText(getApplicationContext(), c.toParams(), Toast.LENGTH_SHORT).show();
+        RadishworksConnector.apiCall(RadishworksConnector.REQUEST_POST_CLUE, this, h, c.toParams());
     }
 }

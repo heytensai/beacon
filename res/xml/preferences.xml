@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <EditTextPreference
+        android:key="apikey"
+        android:title="@string/settings_apikey"
+        android:singleLine="true"
+        />
+    <CheckBoxPreference
+        android:key="usegps"
+        android:title="@string/settings_usegps"
+        android:summary="@string/settings_usegps_summary"
+        android:defaultValue="true"
+        />
+    <ListPreference
+        android:key="gpsUpdateInterval"
+        android:title="@string/settings_gpsupdateinterval"
+        android:summary="@string/settings_gpsupdateinterval_summary"
+        android:defaultValue="60000"
+        android:entries="@array/gpsUpdateInterval"
+        android:entryValues="@array/gpsUpdateIntervalValues"
+        />
+</PreferenceScreen>

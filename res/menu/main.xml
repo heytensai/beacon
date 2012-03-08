@@ -3,8 +3,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/menuSetApiKey"
           android:title="Set API Key"
-    />
+            />
+    <item android:id="@+id/menuSettings"
+          android:title="Settings"
+            />
     <item android:id="@+id/menuAbout"
           android:title="About"
-    />
+            />
 </menu>

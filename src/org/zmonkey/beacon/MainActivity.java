@@ -5,7 +5,6 @@ import android.app.TabActivity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.location.Location;
 import android.location.LocationListener;
@@ -13,56 +12,34 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.text.InputFilter;
+import android.preference.PreferenceManager;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TabHost;
 import android.widget.TextView;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.net.URLConnection;
-
 public class MainActivity extends TabActivity implements LocationListener
 {
-    public static final String PREFS_NAME = "org.zmonkey.beacon";
-    public static final int APIKEY_LENGTH = 33;
-    public static final String FIELD_DELIMITER = "<br/>";
-    public static final int REQUEST_LIST_MISSIONS = 0;
-    public static final int REQUEST_TEAM_NUMER = 1;
-    public static final int REQUEST_TEAM_MEMBERS = 2;
-    public static final int REQUEST_TEAM_TYPE = 3;
-    public static final int REQUEST_TEAM_OBJECTIVES = 4;
-    public static final int REQUEST_TEAM_NOTES = 5;
-    public static final int REQUEST_POST_LOCATION = 6;
-    public static final int REQUEST_POST_CLUE = 7;
-    public static final String API_BASE = "https://www.radishworks.com/SearchManager/api.php?";
-    public static final String API_APIKEY = "APIKey=";
-    public static final String API_MISSIONID = "MissionID=";
-    public static final String API_LATITUDE = "Latitude=";
-    public static final String API_LONGITUDE = "Longitude=";
-    public static final String API_CLUE_NAME = "ClueName=";
-    public static final String API_CLUE_DESCRIPTION = "ClueDescription=";
-    public static final String API_CLUE_FOUNDBY = "ClueFoundBy=";
-    public static final String API_CLUE_LOCATION = "ClueLocation=";
-    public static final String[] API_REQUESTS = {"Get=MissionList", "Get=TeamNumber", "Get=TeamMembers", "Get=TeamType",
-            "Get=TeamObjectives", "Get=TeamNotes", "Post=Location", "Post=Clue"
-    };
+    //public static final String PREFS_NAME = "org.zmonkey.beacon";
     public static MainActivity main;
-    private String apiKey;
-    private int missionNumber = -1;
-    private Handler h;
-    private LocationManager locationManager;
+    public static final Mission mission = new Mission();
+    public static final Team team = new Team();
     private static final int LOCATION_UPDATE_TIME = 60000;
     private static final int LOCATION_UPDATE_DISTANCE = 50;
+    
+    private static final int OPTIONS_SETTINGS = 0;
+    private static final int OPTIONS_REFRESH = 1;
+    private static final int OPTIONS_ABOUT = 2;
+
+    private Handler h;
+    private LocationManager locationManager;
     public Location currentLocation;
 
     public void onLocationChanged(Location location) {
-        LocationActivity.location.updateLocation(location);
+        if (LocationActivity.location != null){
+            LocationActivity.location.updateLocation(location);
+        }
         currentLocation = location;
         //Toast.makeText(getApplicationContext(), "MainActivity.onLocationChanged", Toast.LENGTH_SHORT).show();
     }
@@ -92,15 +69,19 @@ public class MainActivity extends TabActivity implements LocationListener
     }
 
     protected void onResume(){
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_UPDATE_TIME, LOCATION_UPDATE_DISTANCE, this);
-        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, LOCATION_UPDATE_TIME, LOCATION_UPDATE_DISTANCE, this);
-        currentLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        if (locationManager != null){
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_UPDATE_TIME, LOCATION_UPDATE_DISTANCE, this);
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, LOCATION_UPDATE_TIME, LOCATION_UPDATE_DISTANCE, this);
+            currentLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        }
         super.onResume();
         //Toast.makeText(getApplicationContext(), "MainActivity.onResume", Toast.LENGTH_SHORT).show();
     }
 
     protected void onPause(){
-        locationManager.removeUpdates(this);
+        if (locationManager != null){
+            locationManager.removeUpdates(this);
+        }
         super.onPause();
         //Toast.makeText(getApplicationContext(), "MainActivity.onPause", Toast.LENGTH_SHORT).show();
     }
@@ -123,7 +104,6 @@ public class MainActivity extends TabActivity implements LocationListener
         setContentView(R.layout.main);
         setupButtons();
         setupMission();
-        loadPreferences();
         refreshDisplay();
         main = this;
 
@@ -135,7 +115,7 @@ public class MainActivity extends TabActivity implements LocationListener
         Intent intent;
 
         intent = new Intent().setClass(this, InfoActivity.class);
-        spec = tabHost.newTabSpec("info").setIndicator("Info", res.getDrawable(R.drawable.ic_tab_clue)).setContent(intent);
+        spec = tabHost.newTabSpec("info").setIndicator("Info", res.getDrawable(R.drawable.ic_tab_info)).setContent(intent);
         tabHost.addTab(spec);
 
 //        intent = new Intent().setClass(this, MapActivity.class);
@@ -147,7 +127,7 @@ public class MainActivity extends TabActivity implements LocationListener
         tabHost.addTab(spec);
 
         intent = new Intent().setClass(this, LocationActivity.class);
-        spec = tabHost.newTabSpec("location").setIndicator("Location", res.getDrawable(R.drawable.ic_tab_clue)).setContent(intent);
+        spec = tabHost.newTabSpec("location").setIndicator("Location", res.getDrawable(R.drawable.ic_tab_location)).setContent(intent);
         tabHost.addTab(spec);
 
         setupCallbackHandler();
@@ -159,7 +139,7 @@ public class MainActivity extends TabActivity implements LocationListener
             public void handleMessage(Message msg) {
                 //Toast.makeText(getApplicationContext(), API_REQUESTS[msg.what] + "-/-" + (String)msg.obj, Toast.LENGTH_SHORT).show();
                 switch (msg.what) {
-                    case REQUEST_LIST_MISSIONS:
+                    case RadishworksConnector.REQUEST_LIST_MISSIONS:
                         makeSelectMissionDialog((String) msg.obj);
                         break;
                 }
@@ -182,89 +162,19 @@ public class MainActivity extends TabActivity implements LocationListener
 
     }
 
-    public void apiCall(int requestId, Handler h, String parameters){
-        try	{
-            String uri = API_BASE + API_APIKEY + apiKey + "&" + API_REQUESTS[requestId];
-            if (parameters != null){
-                uri = uri + "&" + parameters;
-            }
-            switch(requestId){
-                case REQUEST_TEAM_NUMER:
-                case REQUEST_TEAM_MEMBERS:
-                case REQUEST_TEAM_OBJECTIVES:
-                case REQUEST_TEAM_NOTES:
-                case REQUEST_TEAM_TYPE:
-                case REQUEST_POST_LOCATION:
-                case REQUEST_POST_CLUE:
-                    uri = uri + "&" + API_MISSIONID + Integer.toString(missionNumber);
-                    break;
-            }
-            //Toast.makeText(getApplicationContext(), uri, Toast.LENGTH_SHORT).show();
-            URL url = new URL(uri);
-            URLConnection conn = url.openConnection();
-            // Get the response
-            BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            String line = "";
-            while ((line = rd.readLine()) != null) {
-                Message lmsg;
-                lmsg = new Message();
-                lmsg.obj = line;
-                lmsg.what = requestId;
-                h.sendMessage(lmsg);
-            }
-        }
-        catch (Exception e)	{
-        }
-    }
-
-    public void apiCall(int requestId, Handler h){
-        apiCall(requestId, h, null);
-    }
-
     private void listActiveMissions(){
-        apiCall(REQUEST_LIST_MISSIONS, h);
-    }
-
-    private void loadPreferences(){
-        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, 0);
-
-        apiKey = prefs.getString("apikey", "");
-
-        //Toast.makeText(getApplicationContext(), "Loaded Preferences", Toast.LENGTH_SHORT).show();
+        RadishworksConnector.apiCall(RadishworksConnector.REQUEST_LIST_MISSIONS, this, h);
     }
 
     public boolean hasApiKey(){
-        return !(apiKey == null);
-    }
-
-    public void setApiKey(String key){
-        SharedPreferences prefs = getSharedPreferences(MainActivity.PREFS_NAME, 0);
-        SharedPreferences.Editor edit = prefs.edit();
-        if (key == null){
-            edit.putString("apikey", "");
-            apiKey = null;
-            return;
-        }
-        if (key.equals("")){
-            apiKey = null;
-        }
-        else{
-            apiKey = key;
-        }
-        edit.putString("apikey", key);
-        edit.commit();
-    }
-
-    public int getMissionNumber(){
-        return missionNumber;
+        return !PreferenceManager.getDefaultSharedPreferences(this).getString("apikey", "").equals("");
     }
 
     public boolean hasMissionNumber(){
-        return (missionNumber > -1);
+        return (mission.number > -1);
     }
 
     public void refreshDisplay(){
-        refreshApiKey();
         refreshMission();
         refreshButtons();
     }
@@ -282,41 +192,27 @@ public class MainActivity extends TabActivity implements LocationListener
     private void refreshButtons(){
     }
 
-    private void refreshApiKey(){
-        TextView t = (TextView) findViewById(R.id.apikey);
-        if (hasApiKey()){
-            t.setText(apiKey);
-        }
-        else{
-            t.setText("No API Key");
-        }
-    }
-
-    public String getApiKey(){
-        return apiKey;
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main, menu);
-        return true;
+        menu.add(Menu.NONE, OPTIONS_SETTINGS, 0, "Settings");
+        menu.add(Menu.NONE, OPTIONS_REFRESH, 0, "Refresh");
+        menu.add(Menu.NONE, OPTIONS_ABOUT, 0, "About");
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
-            case R.id.menuSetApiKey:
-//                Intent intent = new Intent(this, SettingsActivity.class);
-//                startActivity(intent);
-                makeApiKeyDialog();
+            case OPTIONS_SETTINGS:
+                startActivity(new Intent(this, SettingsActivity.class));
                 return true;
-            case R.id.menuAbout:
+            case OPTIONS_ABOUT:
                 makeAboutDialog();
                 return true;
-            default:
-                return super.onOptionsItemSelected(item);
+            case OPTIONS_REFRESH:
+                return true;
         }
+        return false;
     }
 
     private void makeSelectMissionDialog(String missions){
@@ -332,7 +228,7 @@ public class MainActivity extends TabActivity implements LocationListener
         }
         //Toast.makeText(getApplicationContext(), missions, Toast.LENGTH_SHORT).show();
 
-        final String[] missionList = missions.split(FIELD_DELIMITER);
+        final String[] missionList = missions.split(RadishworksConnector.FIELD_DELIMITER);
         final String[] missionNames = new String[missionList.length];
         final int[] missionNumbers = new int[missionList.length];
         for (int i=0; i<missionNames.length; i++){
@@ -343,7 +239,7 @@ public class MainActivity extends TabActivity implements LocationListener
         }
         alert.setItems(missionNames, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int item) {
-                missionNumber = missionNumbers[item];
+                mission.number = missionNumbers[item];
                 TextView t = (TextView)findViewById(R.id.mission);
                 t.setText(missionNames[item]);
                 refreshButtons();
@@ -416,35 +312,6 @@ public class MainActivity extends TabActivity implements LocationListener
 
         alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
-            }
-        });
-
-        alert.show();
-    }
-    public void makeApiKeyDialog(){
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-
-        alert.setTitle("API Key");
-        alert.setMessage("Enter your API Key");
-
-        // Set an EditText view to get user input
-        final EditText input = new EditText(this);
-        input.setText(getApiKey());
-        alert.setView(input);
-        InputFilter[] FilterArray = new InputFilter[1];
-        FilterArray[0] = new InputFilter.LengthFilter(APIKEY_LENGTH);
-        input.setFilters(FilterArray);
-
-        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                MainActivity.main.setApiKey(input.getText().toString());
-                MainActivity.main.refreshDisplay();
-            }
-        });
-
-        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                // Canceled.
             }
         });
 
