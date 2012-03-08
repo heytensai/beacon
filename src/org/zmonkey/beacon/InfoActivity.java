@@ -28,15 +28,6 @@ public class InfoActivity extends Activity {
         setContentView(R.layout.info);
         Button b;
 
-        b = (Button) findViewById(R.id.refresh);
-        b.setEnabled(false);
-        b.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                loadMissionDetails();
-            }
-        });
-
         setupCallbackHandler();
 
         info = this;
@@ -94,11 +85,6 @@ public class InfoActivity extends Activity {
                 t.setText(teamInfo);
 
                 super.handleMessage(msg);
-                Button b;
-                b = (Button) findViewById(R.id.refresh);
-                if (b != null){
-                    b.setEnabled(true);
-                }
             }
         };
     }

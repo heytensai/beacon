@@ -210,6 +210,9 @@ public class MainActivity extends TabActivity implements LocationListener
                 makeAboutDialog();
                 return true;
             case OPTIONS_REFRESH:
+                if (InfoActivity.info != null){
+                    InfoActivity.info.loadMissionDetails();
+                }
                 return true;
         }
         return false;
@@ -307,8 +310,8 @@ public class MainActivity extends TabActivity implements LocationListener
     public void makeAboutDialog(){
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
-        alert.setTitle("Mission Manager");
-        alert.setMessage("For Search & Rescue and stuff");
+        alert.setTitle(getString(R.string.app_name));
+        alert.setMessage(getString(R.string.about));
 
         alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {

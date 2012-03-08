@@ -69,10 +69,16 @@
                     android:padding="10dp"
                     />
             <Button
-                    android:id="@+id/refresh"
+                    android:id="@+id/subject"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:text="Refresh"
+                    android:text="@string/info_subjects"
+                    />
+            <Button
+                    android:id="@+id/command"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/info_command"
                     />
         </LinearLayout>
     </ScrollView>
