@@ -58,14 +58,22 @@ public final class R {
         public static final int locationLatitude=0x7f0a000f;
         public static final int locationLongitude=0x7f0a0010;
         public static final int locationUpdate=0x7f0a0012;
-        public static final int menuAbout=0x7f0a0017;
-        public static final int menuSetApiKey=0x7f0a0015;
-        public static final int menuSettings=0x7f0a0016;
+        public static final int menuAbout=0x7f0a001f;
+        public static final int menuSetApiKey=0x7f0a001d;
+        public static final int menuSettings=0x7f0a001e;
         public static final int mission=0x7f0a0013;
         public static final int missionDescription=0x7f0a0009;
         public static final int radioCommand=0x7f0a000d;
         public static final int radioTactical=0x7f0a000e;
-        public static final int subjectList=0x7f0a0014;
+        public static final int subjectAge=0x7f0a0017;
+        public static final int subjectEyeColor=0x7f0a001a;
+        public static final int subjectHairColor=0x7f0a001b;
+        public static final int subjectHeight=0x7f0a0018;
+        public static final int subjectList=0x7f0a001c;
+        public static final int subjectName=0x7f0a0014;
+        public static final int subjectNickname=0x7f0a0015;
+        public static final int subjectSex=0x7f0a0016;
+        public static final int subjectWeight=0x7f0a0019;
         public static final int teamMembers=0x7f0a0006;
         public static final int teamNotes=0x7f0a0008;
         public static final int teamNumber=0x7f0a0005;
@@ -79,7 +87,8 @@ public final class R {
         public static final int main=0x7f030004;
         public static final int map=0x7f030005;
         public static final int settings=0x7f030006;
-        public static final int subjects=0x7f030007;
+        public static final int subjectdetail=0x7f030007;
+        public static final int subjects=0x7f030008;
     }
     public static final class menu {
         public static final int main=0x7f090000;
@@ -101,6 +110,15 @@ public final class R {
         public static final int settings_sendGpsUpdates_summary=0x7f080013;
         public static final int settings_usegps=0x7f08000e;
         public static final int settings_usegps_summary=0x7f08000f;
+        public static final int subject_=0x7f08001e;
+        public static final int subject_age=0x7f080019;
+        public static final int subject_eyeColor=0x7f08001c;
+        public static final int subject_hairColor=0x7f08001d;
+        public static final int subject_height=0x7f08001a;
+        public static final int subject_name=0x7f080016;
+        public static final int subject_nickname=0x7f080017;
+        public static final int subject_sex=0x7f080018;
+        public static final int subject_weight=0x7f08001b;
         public static final int text_label_size=0x7f080006;
         public static final int text_value_padding_bottom=0x7f080009;
         public static final int text_value_padding_left=0x7f08000a;

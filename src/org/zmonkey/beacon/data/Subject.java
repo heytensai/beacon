@@ -1,5 +1,6 @@
 package org.zmonkey.beacon.data;
 
+import java.io.Serializable;
 import java.util.Vector;
 
 /**
@@ -7,7 +8,7 @@ import java.util.Vector;
  * Date: 3/11/12
  * Time: 3:16 PM
  */
-public class Subject {
+public class Subject implements Serializable {
     public int id;
     public String name;
     public String nickname;

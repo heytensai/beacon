@@ -1,6 +1,7 @@
 package org.zmonkey.beacon;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -72,7 +73,11 @@ public class SubjectsActivity extends Activity {
     }
     
     private void subjectClicked(Subject s){
-        
+        Intent intent = new Intent(this, SubjectDetailActivity.class);
+        Bundle b = new Bundle();
+        b.putSerializable("subject", s);
+        intent.putExtras(b);
+        startActivity(intent);
     }
 
     private void setupCallbackHandler(){

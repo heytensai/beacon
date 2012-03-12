@@ -25,4 +25,14 @@
     
     <string name="info_subjects">Subject Info</string>
     <string name="info_command">Command Info</string>
+    
+    <string name="subject_name">Subject Name</string>
+    <string name="subject_nickname">Nickname</string>
+    <string name="subject_sex">Sex</string>
+    <string name="subject_age">Age</string>
+    <string name="subject_height">Height</string>
+    <string name="subject_weight">Weight</string>
+    <string name="subject_eyeColor">Eye Color</string>
+    <string name="subject_hairColor">Hair Color</string>
+    <string name="subject_">Subject </string>
 </resources>
