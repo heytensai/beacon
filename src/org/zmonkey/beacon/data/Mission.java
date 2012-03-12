@@ -1,4 +1,4 @@
-package org.zmonkey.beacon;
+package org.zmonkey.beacon.data;
 
 /**
  * User: corey

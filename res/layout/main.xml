@@ -4,33 +4,15 @@
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
         >
-    <TextView
-        android:layout_height="wrap_content"
-        android:layout_width="fill_parent"
-        android:text="API Key"
-        android:textSize="10sp"
-        android:visibility="gone"
-        />
-    <TextView
-            android:id="@+id/apikey"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/noapikey"
-            android:textSize="16sp"
-            android:visibility="gone"
-            />
-    <TextView
-            android:layout_height="wrap_content"
-            android:layout_width="fill_parent"
-            android:text="Current Mission"
-            android:textSize="10sp"
-            />
+
     <TextView
             android:id="@+id/mission"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="Click to select mission"
-            android:textSize="16sp"
+            android:textSize="20sp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
             />
     <TabHost xmlns:android="http://schemas.android.com/apk/res/android"
              android:id="@android:id/tabhost"

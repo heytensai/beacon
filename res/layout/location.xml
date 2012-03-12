@@ -14,9 +14,12 @@
             android:id="@+id/locationLatitude"
             android:layout_height="wrap_content"
             android:layout_width="fill_parent"
-            android:text="No Data"
-            android:textSize="16sp"
-            android:padding="10dp"
+            android:text="@string/nodata"
+            android:textSize="@dimen/value_size"
+            android:paddingTop="@dimen/value_padding_top"
+            android:paddingBottom="@dimen/value_padding_bottom"
+            android:paddingLeft="@dimen/value_padding_left"
+            android:paddingRight="@dimen/value_padding_right"
         />
     <TextView
             android:layout_height="wrap_content"
@@ -27,9 +30,12 @@
             android:id="@+id/locationLongitude"
             android:layout_height="wrap_content"
             android:layout_width="fill_parent"
-            android:text="No Data"
-            android:textSize="16sp"
-            android:padding="10dp"
+            android:text="@string/nodata"
+            android:textSize="@dimen/value_size"
+            android:paddingTop="@dimen/value_padding_top"
+            android:paddingBottom="@dimen/value_padding_bottom"
+            android:paddingLeft="@dimen/value_padding_left"
+            android:paddingRight="@dimen/value_padding_right"
             />
     <TextView
             android:layout_height="wrap_content"
@@ -40,9 +46,12 @@
             android:id="@+id/locationAltitude"
             android:layout_height="wrap_content"
             android:layout_width="fill_parent"
-            android:text="No Data"
-            android:textSize="16sp"
-            android:padding="10dp"
+            android:text="@string/nodata"
+            android:textSize="@dimen/value_size"
+            android:paddingTop="@dimen/value_padding_top"
+            android:paddingBottom="@dimen/value_padding_bottom"
+            android:paddingLeft="@dimen/value_padding_left"
+            android:paddingRight="@dimen/value_padding_right"
             />
     <Button
         android:id="@+id/locationUpdate"

@@ -1,7 +1,8 @@
-package org.zmonkey.beacon;
+package org.zmonkey.beacon.data;
 
 import android.location.Location;
 import android.text.format.DateFormat;
+import org.zmonkey.beacon.RadishworksConnector;
 
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;

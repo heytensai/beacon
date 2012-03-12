@@ -18,67 +18,171 @@
                     android:layout_height="wrap_content"
                     android:layout_width="fill_parent"
                     android:text="Team"
+                    android:textSize="@dimen/label_size"
                     />
             <TextView
                     android:id="@+id/teamNumber"
                     android:layout_height="wrap_content"
                     android:layout_width="fill_parent"
-                    android:text="No Data"
-                    android:textSize="16sp"
-                    android:padding="10dp"
-                    />
-            <TextView
-                    android:layout_height="wrap_content"
-                    android:layout_width="fill_parent"
-                    android:text="Team Type"
-                    android:visibility="gone"
-                    />
-            <TextView
-                    android:id="@+id/teamType"
-                    android:layout_height="wrap_content"
-                    android:layout_width="fill_parent"
-                    android:text="No Data"
-                    android:textSize="16sp"
-                    android:padding="10dp"
-                    android:visibility="gone"
+                    android:text="@string/nodata"
+                    android:textSize="@dimen/value_size"
+                    android:paddingTop="@dimen/value_padding_top"
+                    android:paddingBottom="@dimen/value_padding_bottom"
+                    android:paddingLeft="@dimen/value_padding_left"
+                    android:paddingRight="@dimen/value_padding_right"
                     />
             <TextView
                     android:layout_height="wrap_content"
                     android:layout_width="fill_parent"
                     android:text="Team Members"
+                    android:textSize="@dimen/label_size"
                     />
             <TextView
                     android:id="@+id/teamMembers"
                     android:layout_height="wrap_content"
                     android:layout_width="fill_parent"
-                    android:text="No Data"
-                    android:textSize="16sp"
-                    android:padding="10dp"
+                    android:text="@string/nodata"
+                    android:textSize="@dimen/value_size"
+                    android:paddingTop="@dimen/value_padding_top"
+                    android:paddingBottom="@dimen/value_padding_bottom"
+                    android:paddingLeft="@dimen/value_padding_left"
+                    android:paddingRight="@dimen/value_padding_right"
                     />
             <TextView
                     android:layout_height="wrap_content"
                     android:layout_width="fill_parent"
                     android:text="Team Objectives"
+                    android:textSize="@dimen/label_size"
                     />
             <TextView
                     android:id="@+id/teamObjectives"
                     android:layout_height="wrap_content"
                     android:layout_width="fill_parent"
-                    android:text="No Data"
-                    android:textSize="16sp"
-                    android:padding="10dp"
+                    android:text="@string/nodata"
+                    android:textSize="@dimen/value_size"
+                    android:paddingTop="@dimen/value_padding_top"
+                    android:paddingBottom="@dimen/value_padding_bottom"
+                    android:paddingLeft="@dimen/value_padding_left"
+                    android:paddingRight="@dimen/value_padding_right"
                     />
-            <Button
-                    android:id="@+id/subject"
-                    android:layout_width="fill_parent"
+            <TextView
                     android:layout_height="wrap_content"
-                    android:text="@string/info_subjects"
+                    android:layout_width="fill_parent"
+                    android:text="Team Notes"
+                    android:textSize="@dimen/label_size"
                     />
-            <Button
-                    android:id="@+id/command"
-                    android:layout_width="fill_parent"
+            <TextView
+                    android:id="@+id/teamNotes"
                     android:layout_height="wrap_content"
-                    android:text="@string/info_command"
+                    android:layout_width="fill_parent"
+                    android:text="@string/nodata"
+                    android:textSize="@dimen/value_size"
+                    android:paddingTop="@dimen/value_padding_top"
+                    android:paddingBottom="@dimen/value_padding_bottom"
+                    android:paddingLeft="@dimen/value_padding_left"
+                    android:paddingRight="@dimen/value_padding_right"
+                    />
+            <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:text="Mission Description"
+                    android:textSize="@dimen/label_size"
+                    />
+            <TextView
+                    android:id="@+id/missionDescription"
+                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:text="@string/nodata"
+                    android:textSize="@dimen/value_size"
+                    android:paddingTop="@dimen/value_padding_top"
+                    android:paddingBottom="@dimen/value_padding_bottom"
+                    android:paddingLeft="@dimen/value_padding_left"
+                    android:paddingRight="@dimen/value_padding_right"
+                    />
+            <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:text="Command Post Name"
+                    android:textSize="@dimen/label_size"
+                    />
+            <TextView
+                    android:id="@+id/commandPostName"
+                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:text="@string/nodata"
+                    android:textSize="@dimen/value_size"
+                    android:paddingTop="@dimen/value_padding_top"
+                    android:paddingBottom="@dimen/value_padding_bottom"
+                    android:paddingLeft="@dimen/value_padding_left"
+                    android:paddingRight="@dimen/value_padding_right"
+                    />
+            <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:text="Command Post Location"
+                    android:textSize="@dimen/label_size"
+                    />
+            <TextView
+                    android:id="@+id/commandPostLocation"
+                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:text="@string/nodata"
+                    android:textSize="@dimen/value_size"
+                    android:paddingTop="@dimen/value_padding_top"
+                    android:paddingBottom="@dimen/value_padding_bottom"
+                    android:paddingLeft="@dimen/value_padding_left"
+                    android:paddingRight="@dimen/value_padding_right"
+                    />
+            <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:text="Command Post GPS"
+                    android:textSize="@dimen/label_size"
+                    />
+            <TextView
+                    android:id="@+id/commandPostGps"
+                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:text="@string/nodata"
+                    android:textSize="@dimen/value_size"
+                    android:paddingTop="@dimen/value_padding_top"
+                    android:paddingBottom="@dimen/value_padding_bottom"
+                    android:paddingLeft="@dimen/value_padding_left"
+                    android:paddingRight="@dimen/value_padding_right"
+                    />
+            <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:text="Radio Command Channel"
+                    android:textSize="@dimen/label_size"
+                    />
+            <TextView
+                    android:id="@+id/radioCommand"
+                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:text="@string/nodata"
+                    android:textSize="@dimen/value_size"
+                    android:paddingTop="@dimen/value_padding_top"
+                    android:paddingBottom="@dimen/value_padding_bottom"
+                    android:paddingLeft="@dimen/value_padding_left"
+                    android:paddingRight="@dimen/value_padding_right"
+                    />
+            <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:text="Radio Tactical Channel"
+                    android:textSize="@dimen/label_size"
+                   />
+            <TextView
+                    android:id="@+id/radioTactical"
+                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:text="@string/nodata"
+                    android:textSize="@dimen/value_size"
+                    android:paddingTop="@dimen/value_padding_top"
+                    android:paddingBottom="@dimen/value_padding_bottom"
+                    android:paddingLeft="@dimen/value_padding_left"
+                    android:paddingRight="@dimen/value_padding_right"
                     />
         </LinearLayout>
     </ScrollView>

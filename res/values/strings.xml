@@ -5,13 +5,23 @@
     <string name="noapikey">No API Key</string>
     <string name="apikey">API Key: </string>
     <string name="about">For search and rescue and stuff. But mostly just search and rescue.</string>
+    <string name="nodata">No Data</string>
     
+    <string name="text_label_size">10sp</string>
+    <string name="text_value_size">16sp</string>
+    <string name="text_value_padding_top">10dp</string>
+    <string name="text_value_padding_bottom">10dp</string>
+    <string name="text_value_padding_left">10dp</string>
+    <string name="text_value_padding_right">10dp</string>
+
     <string name="settings_apikey">API Key</string>
     <string name="settings_apikey_prompt">Enter your API key</string>
     <string name="settings_usegps">Use GPS</string>
     <string name="settings_usegps_summary">Turn On GPS</string>
     <string name="settings_gpsupdateinterval">GPS Update Interval</string>
     <string name="settings_gpsupdateinterval_summary">How Often To Upload Location Updates</string>
+    <string name="settings_sendGpsUpdates">Send GPS Updates</string>
+    <string name="settings_sendGpsUpdates_summary">Automatically Record GPS Location</string>
     
     <string name="info_subjects">Subject Info</string>
     <string name="info_command">Command Info</string>

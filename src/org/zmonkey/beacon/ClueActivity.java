@@ -8,14 +8,11 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import java.net.URLEncoder;
+import org.zmonkey.beacon.data.Clue;
 
 /**
  * User: corey
@@ -114,7 +111,7 @@ public class ClueActivity extends Activity {
     }
 
     private void cluePosted(String msg){
-        String error = MainActivity.apiFailure(msg);
+        String error = RadishworksConnector.apiFailure(msg);
         if (error == null){
             EditText t;
             t = (EditText) findViewById(R.id.clueName);

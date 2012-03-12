@@ -2,16 +2,17 @@ package org.zmonkey.beacon;
 
 import android.app.Activity;
 import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import org.zmonkey.beacon.data.LocationUpdate;
+
+import java.util.Vector;
 
 /**
  * User: corey
@@ -21,11 +22,15 @@ import android.widget.Toast;
 public class LocationActivity extends Activity {
     public static LocationActivity location;
     private Handler h;
+    private Vector<LocationUpdate> pendingUpdates;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.location);
+
         location = this;
+        pendingUpdates = new Vector<LocationUpdate>();
+
         Button b = (Button) findViewById(R.id.locationUpdate);
         b.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,7 +65,7 @@ public class LocationActivity extends Activity {
     }
 
     public void locationPosted(String msg){
-        String error = MainActivity.apiFailure(msg);
+        String error = RadishworksConnector.apiFailure(msg);
         if (error == null){
             Toast.makeText(getApplicationContext(), "Location posted", Toast.LENGTH_SHORT).show();
         }
@@ -100,10 +105,19 @@ public class LocationActivity extends Activity {
         if (MainActivity.main.currentLocation == null){
             return;
         }
-        String lat = Double.toString(MainActivity.main.currentLocation.getLatitude());
-        String lon = Double.toString(MainActivity.main.currentLocation.getLongitude());
-        String params = RadishworksConnector.API_LATITUDE + lat + "&" + RadishworksConnector.API_LONGITUDE + lon;
-        RadishworksConnector.apiCall(RadishworksConnector.REQUEST_POST_LOCATION, this, h, params);
+        LocationUpdate loc = new LocationUpdate(MainActivity.main.currentLocation);
+        pendingUpdates.add(loc);
+
+        NetworkInfo network = MainActivity.connectivity.getActiveNetworkInfo();
+        if (network.isConnected()){
+            int i = 0;
+            for (LocationUpdate update : pendingUpdates){
+                if (RadishworksConnector.apiCall(RadishworksConnector.REQUEST_POST_LOCATION, this, h, update.makeParams())){
+                    pendingUpdates.remove(i);
+                }
+                i++;
+            }
+        }
     }
 
     private String trimCoord(String coord){

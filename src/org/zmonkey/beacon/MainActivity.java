@@ -5,10 +5,12 @@ import android.app.TabActivity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -18,6 +20,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TabHost;
 import android.widget.TextView;
+import org.zmonkey.beacon.data.Mission;
+import org.zmonkey.beacon.data.Team;
 
 public class MainActivity extends TabActivity implements LocationListener
 {
@@ -35,6 +39,7 @@ public class MainActivity extends TabActivity implements LocationListener
     private Handler h;
     private LocationManager locationManager;
     public Location currentLocation;
+    public static ConnectivityManager connectivity;
 
     public void onLocationChanged(Location location) {
         if (LocationActivity.location != null){
@@ -69,10 +74,14 @@ public class MainActivity extends TabActivity implements LocationListener
     }
 
     protected void onResume(){
-        if (locationManager != null){
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_UPDATE_TIME, LOCATION_UPDATE_DISTANCE, this);
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, LOCATION_UPDATE_TIME, LOCATION_UPDATE_DISTANCE, this);
-            currentLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        if (prefs == null || prefs.getBoolean("usegps", true)){
+            if (locationManager != null){
+                int updateTime = (prefs == null) ? prefs.getInt("gpsUpdateInterval", LOCATION_UPDATE_TIME) : LOCATION_UPDATE_TIME;
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, updateTime, LOCATION_UPDATE_DISTANCE, this);
+                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, updateTime, LOCATION_UPDATE_DISTANCE, this);
+                currentLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            }
         }
         super.onResume();
         //Toast.makeText(getApplicationContext(), "MainActivity.onResume", Toast.LENGTH_SHORT).show();
@@ -109,6 +118,8 @@ public class MainActivity extends TabActivity implements LocationListener
 
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
+        connectivity = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
         Resources res = getResources();
         TabHost tabHost = getTabHost();
         TabHost.TabSpec spec;
@@ -118,12 +129,16 @@ public class MainActivity extends TabActivity implements LocationListener
         spec = tabHost.newTabSpec("info").setIndicator("Info", res.getDrawable(R.drawable.ic_tab_info)).setContent(intent);
         tabHost.addTab(spec);
 
-//        intent = new Intent().setClass(this, MapActivity.class);
-//        spec = tabHost.newTabSpec("map").setIndicator("Map", res.getDrawable(R.drawable.ic_tab_map)).setContent(intent);
-//        tabHost.addTab(spec);
+        intent = new Intent().setClass(this, MapActivity.class);
+        spec = tabHost.newTabSpec("map").setIndicator("Map", res.getDrawable(R.drawable.ic_tab_map)).setContent(intent);
+        tabHost.addTab(spec);
 
         intent = new Intent().setClass(this, ClueActivity.class);
         spec = tabHost.newTabSpec("clue").setIndicator("Clue", res.getDrawable(R.drawable.ic_tab_clue)).setContent(intent);
+        tabHost.addTab(spec);
+
+        intent = new Intent().setClass(this, SubjectsActivity.class);
+        spec = tabHost.newTabSpec("subjects").setIndicator("Subjects", res.getDrawable(R.drawable.ic_tab_subjects)).setContent(intent);
         tabHost.addTab(spec);
 
         intent = new Intent().setClass(this, LocationActivity.class);
@@ -213,6 +228,9 @@ public class MainActivity extends TabActivity implements LocationListener
                 if (InfoActivity.info != null){
                     InfoActivity.info.loadMissionDetails();
                 }
+                if (SubjectsActivity.subjects != null){
+                    SubjectsActivity.subjects.loadSubjects();
+                }
                 return true;
         }
         return false;
@@ -222,7 +240,7 @@ public class MainActivity extends TabActivity implements LocationListener
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle("Mission Select");
 
-        String failure = apiFailure(missions);
+        String failure = RadishworksConnector.apiFailure(missions);
         if (failure != null){
             alert.setMessage(failure);
             alert.setPositiveButton("Ok", null);
@@ -252,59 +270,12 @@ public class MainActivity extends TabActivity implements LocationListener
                 if (ClueActivity.clue != null){
                     ClueActivity.clue.enableFields(true);
                 }
+                if (SubjectsActivity.subjects != null){
+                    SubjectsActivity.subjects.loadSubjects();
+                }
             }
         });
         alert.show();
-    }
-
-    public static String apiFailure(String s){
-        if (s == null || s.equals("")){
-            return "No data returned";
-        }
-        if (s.equals("<300>")){
-            return "Missing API Key";
-        }
-        if (s.equals("<301>")){
-            return "Bad API Key";
-        }
-        if (s.equals("<302>")){
-            return "No command";
-        }
-        if (s.equals("<303>")){
-            return "No email address";
-        }
-        if (s.equals("<304>")){
-            return "No permissions";
-        }
-        if (s.equals("<305>")){
-            return "No mission selected";
-        }
-        if (s.equals("<306>")){
-            return "No permissions to that mission";
-        }
-        if (s.equals("<309>")){
-            return "Sorry, no missions";
-        }
-        if (s.equals("<310>")){
-            return "Invalid Latitude Longitude";
-        }
-        if (s.equals("<311>")){
-            return "No team assignment";
-        }
-        if (s.equals("<312>")){
-            return "Invalid Post add value";
-        }
-        if (s.equals("<313>")){
-            return "Invalid Get request";
-        }
-        if (s.equals("<314>")){
-            return "Missing clue name";
-        }
-        if (s.equals("<315>")){
-            return "Posted image is too large";
-        }
-
-        return null;
     }
 
     public void makeAboutDialog(){

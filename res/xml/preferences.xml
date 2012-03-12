@@ -12,6 +12,12 @@
         android:summary="@string/settings_usegps_summary"
         android:defaultValue="true"
         />
+    <CheckBoxPreference
+            android:key="sendGpsUpdates"
+            android:title="@string/settings_sendGpsUpdates"
+            android:summary="@string/settings_sendGpsUpdates_summary"
+            android:defaultValue="true"
+            />
     <ListPreference
         android:key="gpsUpdateInterval"
         android:title="@string/settings_gpsupdateinterval"
