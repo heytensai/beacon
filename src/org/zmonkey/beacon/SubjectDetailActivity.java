@@ -88,6 +88,126 @@ public class SubjectDetailActivity extends Activity {
             else{
                 t.setText("");
             }
+
+            t = (TextView) findViewById(R.id.subjectDateLastSeen);
+            if (subject.dateLastSeen != null){
+                t.setText(subject.dateLastSeen);
+            }
+            else{
+                t.setText("");
+            }
+
+            t = (TextView) findViewById(R.id.subjectTimeLastSeen);
+            if (subject.timeLastSeen != null){
+                t.setText(subject.timeLastSeen);
+            }
+            else{
+                t.setText("");
+            }
+
+            t = (TextView) findViewById(R.id.subjectLastLocation);
+            if (subject.lastLocation != null){
+                t.setText(subject.lastLocation);
+            }
+            else{
+                t.setText("");
+            }
+
+            t = (TextView) findViewById(R.id.subjectLastGps);
+            if (subject.lastGps != null){
+                t.setText(subject.lastGps);
+            }
+            else{
+                t.setText("");
+            }
+
+            t = (TextView) findViewById(R.id.subjectHairStyle);
+            if (subject.hairStyle != null){
+                t.setText(subject.hairStyle);
+            }
+            else{
+                t.setText("");
+            }
+
+            t = (TextView) findViewById(R.id.subjectComplexion);
+            if (subject.complexion != null){
+                t.setText(subject.complexion);
+            }
+            else{
+                t.setText("");
+            }
+
+            t = (TextView) findViewById(R.id.subjectBuild);
+            if (subject.build != null){
+                t.setText(subject.build);
+            }
+            else{
+                t.setText("");
+            }
+
+            t = (TextView) findViewById(R.id.subjectShirt);
+            if (subject.shirt != null){
+                t.setText(subject.shirt);
+            }
+            else{
+                t.setText("");
+            }
+
+            t = (TextView) findViewById(R.id.subjectPants);
+            if (subject.pants != null){
+                t.setText(subject.pants);
+            }
+            else{
+                t.setText("");
+            }
+
+            t = (TextView) findViewById(R.id.subjectJacket);
+            if (subject.jacket != null){
+                t.setText(subject.jacket);
+            }
+            else{
+                t.setText("");
+            }
+
+            t = (TextView) findViewById(R.id.subjectShoes);
+            if (subject.shoes != null){
+                t.setText(subject.shoes);
+            }
+            else{
+                t.setText("");
+            }
+
+            t = (TextView) findViewById(R.id.subjectSocks);
+            if (subject.socks != null){
+                t.setText(subject.socks);
+            }
+            else{
+                t.setText("");
+            }
+
+            t = (TextView) findViewById(R.id.subjectGloves);
+            if (subject.gloves != null){
+                t.setText(subject.gloves);
+            }
+            else{
+                t.setText("");
+            }
+
+            t = (TextView) findViewById(R.id.subjectInnerWear);
+            if (subject.innerWear != null){
+                t.setText(subject.innerWear);
+            }
+            else{
+                t.setText("");
+            }
+
+            t = (TextView) findViewById(R.id.subjectOuterWear);
+            if (subject.outerWear != null){
+                t.setText(subject.outerWear);
+            }
+            else{
+                t.setText("");
+            }
         }
     }
 
