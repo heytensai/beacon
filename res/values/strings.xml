@@ -25,7 +25,7 @@
     
     <string name="info_subjects">Subject Info</string>
     <string name="info_command">Command Info</string>
-    
+
     <string name="subject_name">Subject Name</string>
     <string name="subject_nickname">Nickname</string>
     <string name="subject_sex">Sex</string>
@@ -34,5 +34,20 @@
     <string name="subject_weight">Weight</string>
     <string name="subject_eyeColor">Eye Color</string>
     <string name="subject_hairColor">Hair Color</string>
+    <string name="subject_dateLastSeen">Date Last Seen</string>
+    <string name="subject_timeLastSeen">Time Last Seen</string>
+    <string name="subject_lastLocation">Last Location</string>
+    <string name="subject_lastGps">Last Gps</string>
+    <string name="subject_hairStyle">Hair Style</string>
+    <string name="subject_complexion">Complexion</string>
+    <string name="subject_build">Build</string>
+    <string name="subject_shirt">Shirt</string>
+    <string name="subject_pants">Pants</string>
+    <string name="subject_jacket">Jacket</string>
+    <string name="subject_shoes">Shoes</string>
+    <string name="subject_socks">Socks</string>
+    <string name="subject_gloves">Gloves</string>
+    <string name="subject_innerWear">Inner Wear</string>
+    <string name="subject_outerWear">Outer Wear</string>
     <string name="subject_">Subject </string>
 </resources>
