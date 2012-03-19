@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import org.zmonkey.beacon.data.DataManager;
 import org.zmonkey.beacon.data.Subject;
 
 import java.util.Vector;
@@ -21,20 +22,13 @@ import java.util.Vector;
  */
 public class SubjectsActivity extends Activity {
     public static SubjectsActivity subjects;
-    private Handler h;
+    public Handler h;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.subjects);
         subjects = this;
-        setupCallbackHandler();
-        loadSubjects();
-    }
-
-    public void loadSubjects(){
-        if (MainActivity.main.hasMissionNumber()){
-            RadishworksConnector.apiCall(RadishworksConnector.REQUEST_SUBJECT_LIST, this, h);
-        }
+        makeSubjectList(DataManager.data.subjects);
     }
 
     private void makeSubjectList(Vector<Subject> v){
@@ -78,23 +72,6 @@ public class SubjectsActivity extends Activity {
         b.putSerializable("subject", s);
         intent.putExtras(b);
         startActivity(intent);
-    }
-
-    private void setupCallbackHandler(){
-        h = new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                //Toast.makeText(getApplicationContext(), RadishworksConnector.API_REQUESTS[msg.what] + "-/-" + (String) msg.obj, Toast.LENGTH_SHORT).show();
-                switch (msg.what) {
-                    case RadishworksConnector.REQUEST_SUBJECT_LIST:
-                    {
-                        makeSubjectList(Subject.parseText((String) msg.obj));
-                    }
-                    break;
-                }
-                super.handleMessage(msg);
-            }
-        };
     }
 
 }

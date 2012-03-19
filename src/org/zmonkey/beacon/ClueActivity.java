@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import org.zmonkey.beacon.data.Clue;
+import org.zmonkey.beacon.data.DataManager;
 
 /**
  * User: corey
@@ -130,7 +131,7 @@ public class ClueActivity extends Activity {
     }
 
     public void sendClue(){
-        Clue c = makeClue(MainActivity.main.currentLocation);
+        Clue c = makeClue(DataManager.data.currentLocation);
 
         Toast.makeText(getApplicationContext(), c.toParams(), Toast.LENGTH_SHORT).show();
         RadishworksConnector.apiCall(RadishworksConnector.REQUEST_POST_CLUE, this, h, c.toParams());

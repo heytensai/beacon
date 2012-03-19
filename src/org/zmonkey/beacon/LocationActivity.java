@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import org.zmonkey.beacon.data.DataManager;
 import org.zmonkey.beacon.data.LocationUpdate;
 
 import java.util.Vector;
@@ -22,14 +23,12 @@ import java.util.Vector;
 public class LocationActivity extends Activity {
     public static LocationActivity location;
     private Handler h;
-    private Vector<LocationUpdate> pendingUpdates;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.location);
 
         location = this;
-        pendingUpdates = new Vector<LocationUpdate>();
 
         Button b = (Button) findViewById(R.id.locationUpdate);
         b.setOnClickListener(new View.OnClickListener() {
@@ -102,18 +101,18 @@ public class LocationActivity extends Activity {
     }
 
     private void postLocation(){
-        if (MainActivity.main.currentLocation == null){
+        if (DataManager.data.currentLocation == null){
             return;
         }
-        LocationUpdate loc = new LocationUpdate(MainActivity.main.currentLocation);
-        pendingUpdates.add(loc);
+        LocationUpdate loc = new LocationUpdate(DataManager.data.currentLocation);
+        DataManager.data.pendingUpdates.add(loc);
 
         NetworkInfo network = MainActivity.connectivity.getActiveNetworkInfo();
         if (network.isConnected()){
             int i = 0;
-            for (LocationUpdate update : pendingUpdates){
+            for (LocationUpdate update : DataManager.data.pendingUpdates){
                 if (RadishworksConnector.apiCall(RadishworksConnector.REQUEST_POST_LOCATION, this, h, update.makeParams())){
-                    pendingUpdates.remove(i);
+                    DataManager.data.pendingUpdates.remove(i);
                 }
                 i++;
             }

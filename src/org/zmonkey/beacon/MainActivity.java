@@ -1,6 +1,7 @@
 package org.zmonkey.beacon;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.app.TabActivity;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -20,15 +21,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TabHost;
 import android.widget.TextView;
-import org.zmonkey.beacon.data.Mission;
-import org.zmonkey.beacon.data.Team;
+import org.zmonkey.beacon.data.DataManager;
 
 public class MainActivity extends TabActivity implements LocationListener
 {
     //public static final String PREFS_NAME = "org.zmonkey.beacon";
     public static MainActivity main;
-    public static final Mission mission = new Mission();
-    public static final Team team = new Team();
     private static final int LOCATION_UPDATE_TIME = 60000;
     private static final int LOCATION_UPDATE_DISTANCE = 50;
     
@@ -38,14 +36,14 @@ public class MainActivity extends TabActivity implements LocationListener
 
     private Handler h;
     private LocationManager locationManager;
-    public Location currentLocation;
     public static ConnectivityManager connectivity;
+    public ProgressDialog progressDialog;
 
     public void onLocationChanged(Location location) {
         if (LocationActivity.location != null){
             LocationActivity.location.updateLocation(location);
         }
-        currentLocation = location;
+        DataManager.data.currentLocation = location;
         //Toast.makeText(getApplicationContext(), "MainActivity.onLocationChanged", Toast.LENGTH_SHORT).show();
     }
 
@@ -80,7 +78,7 @@ public class MainActivity extends TabActivity implements LocationListener
                 int updateTime = (prefs == null) ? prefs.getInt("gpsUpdateInterval", LOCATION_UPDATE_TIME) : LOCATION_UPDATE_TIME;
                 locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, updateTime, LOCATION_UPDATE_DISTANCE, this);
                 locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, updateTime, LOCATION_UPDATE_DISTANCE, this);
-                currentLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                DataManager.data.currentLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             }
         }
         super.onResume();
@@ -146,6 +144,11 @@ public class MainActivity extends TabActivity implements LocationListener
         tabHost.addTab(spec);
 
         setupCallbackHandler();
+
+        if (DataManager.data.activeMission.number > 0){
+            TextView t = (TextView)findViewById(R.id.mission);
+            t.setText(DataManager.data.activeMission.name);
+        }
     }
 
     private void setupCallbackHandler(){
@@ -153,6 +156,10 @@ public class MainActivity extends TabActivity implements LocationListener
             @Override
             public void handleMessage(Message msg) {
                 //Toast.makeText(getApplicationContext(), API_REQUESTS[msg.what] + "-/-" + (String)msg.obj, Toast.LENGTH_SHORT).show();
+                if (progressDialog != null){
+                    progressDialog.dismiss();
+                    progressDialog = null;
+                }
                 switch (msg.what) {
                     case RadishworksConnector.REQUEST_LIST_MISSIONS:
                         makeSelectMissionDialog((String) msg.obj);
@@ -178,7 +185,14 @@ public class MainActivity extends TabActivity implements LocationListener
     }
 
     private void listActiveMissions(){
-        RadishworksConnector.apiCall(RadishworksConnector.REQUEST_LIST_MISSIONS, this, h);
+        progressDialog = ProgressDialog.show(this, "", getString(R.string.loading));
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                RadishworksConnector.apiCall(RadishworksConnector.REQUEST_LIST_MISSIONS, MainActivity.this, h);
+            }
+        });
+        thread.start();
     }
 
     public boolean hasApiKey(){
@@ -186,7 +200,7 @@ public class MainActivity extends TabActivity implements LocationListener
     }
 
     public boolean hasMissionNumber(){
-        return (mission.number > -1);
+        return (DataManager.data.activeMission.number > -1);
     }
 
     public void refreshDisplay(){
@@ -203,7 +217,7 @@ public class MainActivity extends TabActivity implements LocationListener
         TextView t = (TextView)findViewById(R.id.mission);
         t.setEnabled(enabled);
     }
-
+    
     private void refreshButtons(){
     }
 
@@ -225,12 +239,8 @@ public class MainActivity extends TabActivity implements LocationListener
                 makeAboutDialog();
                 return true;
             case OPTIONS_REFRESH:
-                if (InfoActivity.info != null){
-                    InfoActivity.info.loadMissionDetails();
-                }
-                if (SubjectsActivity.subjects != null){
-                    SubjectsActivity.subjects.loadSubjects();
-                }
+                DataManager.data.loadMissionDetails(this);
+                DataManager.data.loadSubjects(this);
                 return true;
         }
         return false;
@@ -260,19 +270,15 @@ public class MainActivity extends TabActivity implements LocationListener
         }
         alert.setItems(missionNames, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int item) {
-                mission.number = missionNumbers[item];
+                DataManager.data.activeMission.number = missionNumbers[item];
                 TextView t = (TextView)findViewById(R.id.mission);
                 t.setText(missionNames[item]);
                 refreshButtons();
-                if (InfoActivity.info != null){
-                    InfoActivity.info.loadMissionDetails();
-                }
+                DataManager.data.loadMissionDetails(MainActivity.this);
                 if (ClueActivity.clue != null){
                     ClueActivity.clue.enableFields(true);
                 }
-                if (SubjectsActivity.subjects != null){
-                    SubjectsActivity.subjects.loadSubjects();
-                }
+                DataManager.data.loadSubjects(MainActivity.this);
             }
         });
         alert.show();

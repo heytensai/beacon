@@ -5,6 +5,7 @@ import android.net.NetworkInfo;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
+import org.zmonkey.beacon.data.DataManager;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -84,7 +85,7 @@ public class RadishworksConnector {
                 case REQUEST_RADIO_COMMAND:
                 case REQUEST_RADIO_TACTICAL:
                 case REQUEST_SUBJECT_LIST:
-                    uri = uri + "&" + API_MISSIONID + Integer.toString(MainActivity.mission.number);
+                    uri = uri + "&" + API_MISSIONID + Integer.toString(DataManager.data.activeMission.number);
                     break;
             }
             //Toast.makeText(getApplicationContext(), uri, Toast.LENGTH_SHORT).show();

@@ -27,10 +27,10 @@ public class LocationUpdate {
         if (location != null){
             s.append("&");
             s.append(RadishworksConnector.API_LATITUDE);
-            s.append(Double.toString(MainActivity.main.currentLocation.getLatitude()));
+            s.append(Double.toString(DataManager.data.currentLocation.getLatitude()));
             s.append("&");
             s.append(RadishworksConnector.API_LONGITUDE);
-            s.append(Double.toString(MainActivity.main.currentLocation.getLongitude()));
+            s.append(Double.toString(DataManager.data.currentLocation.getLongitude()));
         }
 
         if (time != null){

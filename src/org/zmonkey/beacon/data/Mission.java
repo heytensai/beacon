@@ -8,6 +8,7 @@ package org.zmonkey.beacon.data;
 public class Mission {
     public int number = -1;
     public String name;
+    public String description;
     public String commandPostName;
     public String commandPostLocation;
     public String commandPostGPSCoords;
