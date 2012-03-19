@@ -272,6 +272,7 @@ public class MainActivity extends TabActivity implements LocationListener
                 DataManager.data.activeMission.number = missionNumbers[item];
                 TextView t = (TextView)findViewById(R.id.mission);
                 t.setText(missionNames[item]);
+                DataManager.data.activeMission.name = missionNames[item];
                 refreshButtons();
                 DataManager.data.loadMissionDetails(MainActivity.this);
                 if (ClueActivity.clue != null){
