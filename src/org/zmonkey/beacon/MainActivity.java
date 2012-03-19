@@ -124,9 +124,9 @@ public class MainActivity extends TabActivity implements LocationListener
         spec = tabHost.newTabSpec("info").setIndicator("Info", res.getDrawable(R.drawable.ic_tab_info)).setContent(intent);
         tabHost.addTab(spec);
 
-        intent = new Intent().setClass(this, MapActivity.class);
-        spec = tabHost.newTabSpec("map").setIndicator("Map", res.getDrawable(R.drawable.ic_tab_map)).setContent(intent);
-        tabHost.addTab(spec);
+        //intent = new Intent().setClass(this, MapActivity.class);
+        //spec = tabHost.newTabSpec("map").setIndicator("Map", res.getDrawable(R.drawable.ic_tab_map)).setContent(intent);
+        //tabHost.addTab(spec);
 
         intent = new Intent().setClass(this, ClueActivity.class);
         spec = tabHost.newTabSpec("clue").setIndicator("Clue", res.getDrawable(R.drawable.ic_tab_clue)).setContent(intent);
