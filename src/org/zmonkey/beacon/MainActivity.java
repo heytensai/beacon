@@ -109,9 +109,6 @@ public class MainActivity extends TabActivity implements LocationListener
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        setupButtons();
-        setupMission();
-        refreshDisplay();
         main = this;
 
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
@@ -145,10 +142,9 @@ public class MainActivity extends TabActivity implements LocationListener
 
         setupCallbackHandler();
 
-        if (DataManager.data.activeMission.number > 0){
-            TextView t = (TextView)findViewById(R.id.mission);
-            t.setText(DataManager.data.activeMission.name);
-        }
+        setupMission();
+        setupButtons();
+        refreshDisplay();
     }
 
     private void setupCallbackHandler(){
@@ -216,6 +212,9 @@ public class MainActivity extends TabActivity implements LocationListener
         }
         TextView t = (TextView)findViewById(R.id.mission);
         t.setEnabled(enabled);
+        if (DataManager.data != null && DataManager.data.activeMission.name != null){
+            t.setText(DataManager.data.activeMission.name);
+        }
     }
     
     private void refreshButtons(){
