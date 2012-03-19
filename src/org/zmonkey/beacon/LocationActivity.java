@@ -1,8 +1,11 @@
 package org.zmonkey.beacon;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
 import android.location.Location;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -50,7 +53,45 @@ public class LocationActivity extends Activity {
             }
         };
 
+        //make GPS coords clickable
+        TextView t = (TextView) findViewById(R.id.locationLatitude);
+        t.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                locationClicked();
+            }
+        });
+        t = (TextView) findViewById(R.id.locationLongitude);
+        t.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                locationClicked();
+            }
+        });
+
+
         //Toast.makeText(getApplicationContext(), "LocationActivity.onCreate", Toast.LENGTH_SHORT).show();
+    }
+
+    public void locationClicked(){
+        if (DataManager.data.currentLocation == null){
+            return;
+        }
+        String uri = "geo:" + DataManager.data.currentLocation.toString();
+        Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+        try {
+            startActivity(i);
+        }
+        catch (ActivityNotFoundException e){
+            uri = "http://maps.google.com/maps?q=" + DataManager.data.currentLocation.toString();
+            i = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+            try {
+                startActivity(i);
+            }
+            catch (ActivityNotFoundException e2){
+                Toast.makeText(LocationActivity.this, "No mapping intent found for " + uri, Toast.LENGTH_LONG).show();
+            }
+        }
     }
 
     protected void onResume(){
