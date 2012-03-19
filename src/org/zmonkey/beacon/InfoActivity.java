@@ -2,9 +2,13 @@ package org.zmonkey.beacon;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 import org.zmonkey.beacon.data.DataManager;
@@ -22,6 +26,35 @@ public class InfoActivity extends Activity {
         setContentView(R.layout.info);
 
         info = this;
+
+        //make GPS coords clickable
+        final TextView t = (TextView) findViewById(R.id.commandPostGps);
+        t.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (DataManager.data.activeMission == null){
+                    return;
+                }
+                if (DataManager.data.activeMission.commandPostGPSCoords == null){
+                    return;
+                }
+                String uri = "geo:" + t.getText();
+                Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+                try {
+                    startActivity(i);
+                }
+                catch (ActivityNotFoundException e){
+                    uri = "http://maps.google.com/maps?q=" + t.getText();
+                    i = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+                    try {
+                        startActivity(i);
+                    }
+                    catch (ActivityNotFoundException e2){
+                        Toast.makeText(InfoActivity.this, "No mapping intent found for " + uri, Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+        });
 
         refreshViews();
     }
