@@ -275,14 +275,25 @@ public class MainActivity extends TabActivity implements LocationListener
         }
         //Toast.makeText(getApplicationContext(), missions, Toast.LENGTH_SHORT).show();
 
+        //TODO: convert these arrays to a vector
         final String[] missionList = missions.split(RadishworksConnector.FIELD_DELIMITER);
-        final String[] missionNames = new String[missionList.length];
-        final int[] missionNumbers = new int[missionList.length];
-        for (int i=0; i<missionNames.length; i++){
+        int count = missionList.length - 1;
+        if (missionList[count] == null || missionList[count].equals("")){
+            count--;
+        }
+        final String[] missionNames = new String[count+1];
+        final int[] missionNumbers = new int[count+1];
+        for (int i=0; i<count+1; i++){
             String s = missionList[i];
             String[] f = s.split(",", 3);
-            missionNames[i] = f[1] + " " + f[2];
-            missionNumbers[i] = Integer.parseInt(f[0]);
+            if (f.length > 0){
+                missionNames[i] = f[1] + " " + f[2];
+                missionNumbers[i] = Integer.parseInt(f[0]);
+            }
+            else{
+                missionNames[i] = "No mission";
+                missionNumbers[i] = 999;
+            }
         }
         alert.setItems(missionNames, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int item) {

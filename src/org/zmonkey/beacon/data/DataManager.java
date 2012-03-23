@@ -85,7 +85,7 @@ public class DataManager {
                 //Toast.makeText(getApplicationContext(), RadishworksConnector.API_REQUESTS[msg.what] + "-/-" + (String) msg.obj, Toast.LENGTH_SHORT).show();
                 String failure = RadishworksConnector.apiFailure((String) msg.obj);
                 if (failure != null){
-                    Toast.makeText(context, RadishworksConnector.API_REQUESTS[msg.what] + "-/-" + msg.obj, Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(context, RadishworksConnector.API_REQUESTS[msg.what] + "-/-" + msg.obj, Toast.LENGTH_SHORT).show();
                     return;
                 }
                 switch (msg.what) {

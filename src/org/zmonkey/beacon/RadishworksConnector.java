@@ -110,14 +110,23 @@ public class RadishworksConnector {
             URLConnection conn = url.openConnection();
             // Get the response
             BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            StringBuilder s = new StringBuilder();
             String line;
+            Message message = new Message();
+            message.what = requestId;
+            boolean first = true;
             while ((line = rd.readLine()) != null) {
-                Message lmsg;
-                lmsg = new Message();
-                lmsg.obj = line;
-                lmsg.what = requestId;
-                h.sendMessage(lmsg);
+                if (first){
+                    first = false;
+                }
+                else{
+                    s.append("\n");
+                }
+                s.append(line);
             }
+            line = s.toString();
+            message.obj = line;
+            h.sendMessage(message);
         }
         catch (Exception e)	{
             return false;
