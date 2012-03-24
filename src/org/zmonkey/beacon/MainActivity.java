@@ -17,6 +17,7 @@
  */
 package org.zmonkey.beacon;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.app.TabActivity;
@@ -33,11 +34,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TabHost;
 import android.widget.TextView;
+import android.widget.Toast;
 import org.zmonkey.beacon.data.DataManager;
 
 public class MainActivity extends TabActivity implements LocationListener
@@ -191,6 +194,16 @@ public class MainActivity extends TabActivity implements LocationListener
                 listActiveMissions();
             }
         });
+        setupMissionFont();
+    }
+    
+    private void setupMissionFont(){
+        TextView t = (TextView) findViewById(R.id.mission);
+        String s = PreferenceManager.getDefaultSharedPreferences(this).getString("missionFontSize", getString(R.string.settings_missionFontSize_default));
+        int fontSize = Integer.parseInt(s);
+        if (fontSize > 10){
+            t.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
+        }
     }
 
     private void setupButtons(){
@@ -249,7 +262,7 @@ public class MainActivity extends TabActivity implements LocationListener
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
             case OPTIONS_SETTINGS:
-                startActivity(new Intent(this, SettingsActivity.class));
+                startActivityForResult(new Intent(this, SettingsActivity.class), OPTIONS_SETTINGS);
                 return true;
             case OPTIONS_ABOUT:
                 makeAboutDialog();
@@ -260,6 +273,15 @@ public class MainActivity extends TabActivity implements LocationListener
                 return true;
         }
         return false;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode){
+            case OPTIONS_SETTINGS:
+                setupMissionFont();
+                break;
+        }
     }
 
     private void makeSelectMissionDialog(String missions){

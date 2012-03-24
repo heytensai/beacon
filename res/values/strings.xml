@@ -23,7 +23,10 @@
     <string name="settings_gpsupdateinterval_summary">How Often To Upload Location Updates</string>
     <string name="settings_sendGpsUpdates">Send GPS Updates</string>
     <string name="settings_sendGpsUpdates_summary">Automatically Record GPS Location</string>
-    
+    <string name="settings_missionFontSize">Mission Font Size</string>
+    <string name="settings_missionFontSize_default">20</string>
+    <string name="settings_missionFontSize_summary">Text Size of Mission Name</string>
+
     <string name="info_subjects">Subject Info</string>
     <string name="info_command">Command Info</string>
 

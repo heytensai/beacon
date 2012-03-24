@@ -11,6 +11,8 @@ public final class R {
     public static final class array {
         public static final int gpsUpdateInterval=0x7f050000;
         public static final int gpsUpdateIntervalValues=0x7f050001;
+        public static final int missionFontSize=0x7f050002;
+        public static final int missionFontSizeValues=0x7f050003;
     }
     public static final class attr {
     }
@@ -101,9 +103,8 @@ public final class R {
         public static final int location=0x7f030003;
         public static final int main=0x7f030004;
         public static final int map=0x7f030005;
-        public static final int settings=0x7f030006;
-        public static final int subjectdetail=0x7f030007;
-        public static final int subjects=0x7f030008;
+        public static final int subjectdetail=0x7f030006;
+        public static final int subjects=0x7f030007;
     }
     public static final class menu {
         public static final int main=0x7f090000;
@@ -112,8 +113,8 @@ public final class R {
         public static final int about=0x7f080004;
         public static final int apikey=0x7f080003;
         public static final int app_name=0x7f080000;
-        public static final int info_command=0x7f080016;
-        public static final int info_subjects=0x7f080015;
+        public static final int info_command=0x7f080019;
+        public static final int info_subjects=0x7f080018;
         public static final int loading=0x7f080006;
         public static final int noapikey=0x7f080002;
         public static final int nodata=0x7f080005;
@@ -122,34 +123,37 @@ public final class R {
         public static final int settings_apikey_prompt=0x7f08000e;
         public static final int settings_gpsupdateinterval=0x7f080011;
         public static final int settings_gpsupdateinterval_summary=0x7f080012;
+        public static final int settings_missionFontSize=0x7f080015;
+        public static final int settings_missionFontSize_default=0x7f080016;
+        public static final int settings_missionFontSize_summary=0x7f080017;
         public static final int settings_sendGpsUpdates=0x7f080013;
         public static final int settings_sendGpsUpdates_summary=0x7f080014;
         public static final int settings_usegps=0x7f08000f;
         public static final int settings_usegps_summary=0x7f080010;
-        public static final int subject_=0x7f08002e;
-        public static final int subject_age=0x7f08001a;
-        public static final int subject_build=0x7f080025;
-        public static final int subject_complexion=0x7f080024;
-        public static final int subject_dateLastSeen=0x7f08001f;
-        public static final int subject_eyeColor=0x7f08001d;
-        public static final int subject_gloves=0x7f08002b;
-        public static final int subject_hairColor=0x7f08001e;
-        public static final int subject_hairStyle=0x7f080023;
-        public static final int subject_height=0x7f08001b;
-        public static final int subject_innerWear=0x7f08002c;
-        public static final int subject_jacket=0x7f080028;
-        public static final int subject_lastGps=0x7f080022;
-        public static final int subject_lastLocation=0x7f080021;
-        public static final int subject_name=0x7f080017;
-        public static final int subject_nickname=0x7f080018;
-        public static final int subject_outerWear=0x7f08002d;
-        public static final int subject_pants=0x7f080027;
-        public static final int subject_sex=0x7f080019;
-        public static final int subject_shirt=0x7f080026;
-        public static final int subject_shoes=0x7f080029;
-        public static final int subject_socks=0x7f08002a;
-        public static final int subject_timeLastSeen=0x7f080020;
-        public static final int subject_weight=0x7f08001c;
+        public static final int subject_=0x7f080031;
+        public static final int subject_age=0x7f08001d;
+        public static final int subject_build=0x7f080028;
+        public static final int subject_complexion=0x7f080027;
+        public static final int subject_dateLastSeen=0x7f080022;
+        public static final int subject_eyeColor=0x7f080020;
+        public static final int subject_gloves=0x7f08002e;
+        public static final int subject_hairColor=0x7f080021;
+        public static final int subject_hairStyle=0x7f080026;
+        public static final int subject_height=0x7f08001e;
+        public static final int subject_innerWear=0x7f08002f;
+        public static final int subject_jacket=0x7f08002b;
+        public static final int subject_lastGps=0x7f080025;
+        public static final int subject_lastLocation=0x7f080024;
+        public static final int subject_name=0x7f08001a;
+        public static final int subject_nickname=0x7f08001b;
+        public static final int subject_outerWear=0x7f080030;
+        public static final int subject_pants=0x7f08002a;
+        public static final int subject_sex=0x7f08001c;
+        public static final int subject_shirt=0x7f080029;
+        public static final int subject_shoes=0x7f08002c;
+        public static final int subject_socks=0x7f08002d;
+        public static final int subject_timeLastSeen=0x7f080023;
+        public static final int subject_weight=0x7f08001f;
         public static final int text_label_size=0x7f080007;
         public static final int text_value_padding_bottom=0x7f08000a;
         public static final int text_value_padding_left=0x7f08000b;

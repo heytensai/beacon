@@ -26,4 +26,12 @@
         android:entries="@array/gpsUpdateInterval"
         android:entryValues="@array/gpsUpdateIntervalValues"
         />
+    <ListPreference
+            android:key="missionFontSize"
+            android:title="@string/settings_missionFontSize"
+            android:summary="@string/settings_missionFontSize_summary"
+            android:defaultValue="@string/settings_missionFontSize_default"
+            android:entries="@array/missionFontSize"
+            android:entryValues="@array/missionFontSizeValues"
+            />
 </PreferenceScreen>

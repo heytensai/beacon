@@ -11,6 +11,8 @@
             android:layout_height="wrap_content"
             android:text="Click to select mission"
             android:textSize="20sp"
+            android:paddingLeft="2dp"
+            android:paddingRight="2dp"
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
             />
