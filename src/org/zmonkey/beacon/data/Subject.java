@@ -25,7 +25,7 @@ import java.util.Vector;
  * Date: 3/11/12
  * Time: 3:16 PM
  */
-public class Subject implements Serializable {
+public class Subject implements Storable, Serializable {
     public int id;
     public String name;
     public String nickname;
@@ -113,5 +113,130 @@ public class Subject implements Serializable {
         }
 
         return s.toString();
+    }
+
+    @Override
+    public StringBuilder store(StringBuilder s) {
+        if (s == null){
+            s = new StringBuilder();
+        }
+        s.append(" id=" + id + "\n");
+        s.append(" name=" + name + "\n");
+        s.append(" nickname=" + nickname + "\n");
+        s.append(" dateLastSeen=" + dateLastSeen + "\n");
+        s.append(" timeLastSeen=" + timeLastSeen + "\n");
+        s.append(" lastLocation=" + lastLocation + "\n");
+        s.append(" lastGps=" + lastGps + "\n");
+        s.append(" sex=" + sex + "\n");
+        s.append(" age=" + age + "\n");
+        s.append(" height=" + height + "\n");
+        s.append(" weight=" + weight + "\n");
+        s.append(" eyeColor=" + eyeColor + "\n");
+        s.append(" hairColor=" + hairColor + "\n");
+        s.append(" hairStyle=" + hairStyle + "\n");
+        s.append(" complexion=" + complexion + "\n");
+        s.append(" build=" + build + "\n");
+        s.append(" shirt=" + shirt + "\n");
+        s.append(" pants=" + pants + "\n");
+        s.append(" jacket=" + jacket + "\n");
+        s.append(" shoes=" + shoes + "\n");
+        s.append(" socks=" + socks + "\n");
+        s.append(" gloves=" + gloves + "\n");
+        s.append(" innerWear=" + innerWear + "\n");
+        s.append(" outerWear=" + outerWear + "\n");
+        return s;
+    }
+
+    @Override
+    public void load(String s) {
+        if (s == null || s.equals("")){
+            return;
+        }
+        String[] lines = s.split("\n");
+        boolean me = false;
+        for (String line : lines){
+            if (me){
+                if (!line.equals("class=Subject") && line.startsWith("class=")){
+                    me = false;
+                }
+                else if (line.startsWith(" id=")){
+                    id = Integer.parseInt(line.substring(4));
+                }
+                else if (line.startsWith(" name=")){
+                    name = line.substring(6);
+                }
+                else if (line.startsWith(" nickname=")){
+                    nickname = line.substring(10);
+                }
+                else if (line.startsWith(" dateLastSeen=")){
+                    dateLastSeen = line.substring(14);
+                }
+                else if (line.startsWith(" timeLastSeen=")){
+                    timeLastSeen = line.substring(14);
+                }
+                else if (line.startsWith(" lastLocation=")){
+                    lastLocation = line.substring(14);
+                }
+                else if (line.startsWith(" lastGps=")){
+                    lastGps = line.substring(9);
+                }
+                else if (line.startsWith(" sex=")){
+                    sex = line.substring(5);
+                }
+                else if (line.startsWith(" age=")){
+                    age = line.substring(5);
+                }
+                else if (line.startsWith(" height=")){
+                    height = line.substring(8);
+                }
+                else if (line.startsWith(" weight=")){
+                    weight = line.substring(7);
+                }
+                else if (line.startsWith(" eyeColor=")){
+                    eyeColor = line.substring(10);
+                }
+                else if (line.startsWith(" hairColor=")){
+                    hairColor = line.substring(11);
+                }
+                else if (line.startsWith(" hairStyle=")){
+                    hairStyle = line.substring(11);
+                }
+                else if (line.startsWith(" complexion=")){
+                    complexion = line.substring(11);
+                }
+                else if (line.startsWith(" build=")){
+                    build = line.substring(7);
+                }
+                else if (line.startsWith(" shirt=")){
+                    shirt = line.substring(7);
+                }
+                else if (line.startsWith(" pants=")){
+                    pants = line.substring(7);
+                }
+                else if (line.startsWith(" jacket=")){
+                    jacket = line.substring(8);
+                }
+                else if (line.startsWith(" shoes=")){
+                    shoes = line.substring(7);
+                }
+                else if (line.startsWith(" socks=")){
+                    socks = line.substring(7);
+                }
+                else if (line.startsWith(" gloves=")){
+                    gloves = line.substring(8);
+                }
+                else if (line.startsWith(" innerWear=")){
+                    innerWear = line.substring(11);
+                }
+                else if (line.startsWith(" outerWear=")){
+                    outerWear = line.substring(11);
+                }
+            }
+            else{
+                if (line.equals("class=Subject")){
+                    me = true;
+                }
+            }
+        }
     }
 }

@@ -7,6 +7,7 @@
     <string name="about">For search and rescue and stuff. But mostly just search and rescue.</string>
     <string name="nodata">No Data</string>
     <string name="loading">Loading, please wait...</string>
+    <string name="settingsfile">beacon.settings.txt</string>
     
     <string name="text_label_size">10sp</string>
     <string name="text_value_size">16sp</string>

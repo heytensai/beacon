@@ -42,6 +42,11 @@ import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 import org.zmonkey.beacon.data.DataManager;
+import org.zmonkey.beacon.data.Subject;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class MainActivity extends TabActivity implements LocationListener
 {
@@ -83,6 +88,11 @@ public class MainActivity extends TabActivity implements LocationListener
 
     protected void onStart(){
         super.onStart();
+        loadData();
+        refreshDisplay();
+        if (InfoActivity.info != null){
+            InfoActivity.info.refreshViews();
+        }
         //Toast.makeText(getApplicationContext(), "MainActivity.onStart", Toast.LENGTH_SHORT).show();
     }
 
@@ -116,11 +126,55 @@ public class MainActivity extends TabActivity implements LocationListener
     protected void onStop(){
         super.onStop();
         //Toast.makeText(getApplicationContext(), "MainActivity.onStop", Toast.LENGTH_SHORT).show();
+
+        saveData();
     }
 
     protected void onDestroy(){
         super.onDestroy();
         //Toast.makeText(getApplicationContext(), "MainActivity.onDestroy", Toast.LENGTH_SHORT).show();
+    }
+
+    private void loadData(){
+        StringBuilder input = new StringBuilder();
+        try{
+            FileInputStream stream = openFileInput(getString(R.string.settingsfile));
+            int i = 0;
+            byte[] buffer = new byte[4096];
+            while (i > -1){
+                i = stream.read(buffer, 0, 4096);
+                String s = new String(buffer);
+                input.append(s);
+            }
+            stream.close();
+            DataManager.data.myTeam.load(input.toString());
+            DataManager.data.activeMission.load(input.toString());
+        }
+        catch (IOException e){
+            //whatever, just give up.
+        }
+    }
+
+    private void saveData(){
+        StringBuilder output = new StringBuilder();
+        if (DataManager.data.myTeam != null){
+            DataManager.data.myTeam.store(output);
+        }
+        if (DataManager.data.activeMission != null){
+            DataManager.data.activeMission.store(output);
+        }
+        for (Subject subject : DataManager.data.subjects){
+            subject.store(output);
+        }
+
+        try{
+            FileOutputStream stream = openFileOutput(getString(R.string.settingsfile), Context.MODE_PRIVATE);
+            stream.write(output.toString().getBytes());
+            stream.close();
+        }
+        catch (IOException e){
+            //whatever, just give up.
+        }
     }
 
     /** Called when the activity is first created. */
