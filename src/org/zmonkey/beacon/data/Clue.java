@@ -82,11 +82,11 @@ public class Clue {
         if (time != null){
             SimpleDateFormat format;
             s.append("&");
-            s.append(RadishworksConnector.API_CLUETIME);
+            s.append(RadishworksConnector.API_TIME);
             format = new SimpleDateFormat("HH:mm:ss");
             s.append(format.format(time));
             s.append("&");
-            s.append(RadishworksConnector.API_CLUEDATE);
+            s.append(RadishworksConnector.API_DATE);
             format = new SimpleDateFormat("yyyy-MM-dd");
             s.append(format.format(time));
         }

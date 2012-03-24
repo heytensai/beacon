@@ -62,8 +62,8 @@ public class RadishworksConnector {
     public static final String API_CLUE_DESCRIPTION = "ClueDescription=";
     public static final String API_CLUE_FOUNDBY = "ClueFoundBy=";
     public static final String API_CLUE_LOCATION = "ClueLocation=";
-    public static final String API_CLUETIME = "ClueTime=";
-    public static final String API_CLUEDATE = "ClueDate=";
+    public static final String API_TIME = "Time=";
+    public static final String API_DATE = "Date=";
     public static final String[] API_REQUESTS = {"Get=MissionList", "Get=TeamNumber", "Get=TeamMembers", "Get=TeamType",
             "Get=TeamObjectives", "Get=TeamNotes", "Post=Location", "Post=Clue",
             "Get=MissionDescription", "Get=CommandPostName", "Get=CommandPostLocation", "Get=CommandPostGPSLocation",
