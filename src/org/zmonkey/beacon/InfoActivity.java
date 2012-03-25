@@ -49,10 +49,7 @@ public class InfoActivity extends Activity {
         t.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (DataManager.data.activeMission == null){
-                    return;
-                }
-                if (DataManager.data.activeMission.commandPostGPSCoords == null){
+                if (DataManager.data.activeMission == null || DataManager.data.activeMission.commandPostGPSCoords == null){
                     return;
                 }
                 String uri = "geo:" + DataManager.data.activeMission.commandPostGPSCoords + "?q=" + DataManager.data.activeMission.commandPostGPSCoords;
