@@ -105,9 +105,9 @@ public class Team implements Storable {
                 }
             }
         }
-        //TODO: fix this vector to array bit
-//        if (!v.isEmpty()){
-//            members = (String []) v.toArray();
-//        }
+        if (!v.isEmpty()){
+            members = new String[v.size()];
+            v.toArray(members);
+        }
     }
 }
