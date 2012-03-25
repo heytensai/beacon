@@ -412,7 +412,7 @@
                     android:id="@+id/subjectImage"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:src="@drawable/subject"
+                    android:src="@drawable/default_subject"
                     />
         </TableRow>
     </TableLayout>

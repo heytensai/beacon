@@ -23,9 +23,11 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import org.zmonkey.beacon.data.Subject;
+import org.zmonkey.beacon.R;
 
 /**
  * User: corey
@@ -36,6 +38,9 @@ public class SubjectDetailActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.subjectdetail);
+        
+        ImageView image = (ImageView) findViewById(R.id.subjectImage);
+        image.setImageResource(R.drawable.default_subject);
         
         //retrieve subject detail
         Bundle b = getIntent().getExtras();
