@@ -45,7 +45,7 @@ public class InfoActivity extends Activity {
         info = this;
 
         //make GPS coords clickable
-        final TextView t = (TextView) findViewById(R.id.commandPostGps);
+        TextView t = (TextView) findViewById(R.id.commandPostGps);
         t.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -55,13 +55,13 @@ public class InfoActivity extends Activity {
                 if (DataManager.data.activeMission.commandPostGPSCoords == null){
                     return;
                 }
-                String uri = "geo:" + t.getText();
+                String uri = "geo:" + DataManager.data.activeMission.commandPostGPSCoords + "?q=" + DataManager.data.activeMission.commandPostGPSCoords;
                 Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
                 try {
                     startActivity(i);
                 }
                 catch (ActivityNotFoundException e){
-                    uri = "http://maps.google.com/maps?q=" + t.getText();
+                    uri = "http://maps.google.com/maps?q=" + DataManager.data.activeMission.commandPostGPSCoords;
                     i = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
                     try {
                         startActivity(i);
