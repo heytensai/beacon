@@ -52,13 +52,18 @@ public class InfoActivity extends Activity {
                 if (DataManager.data.activeMission == null || DataManager.data.activeMission.commandPostGPSCoords == null){
                     return;
                 }
-                String uri = "geo:" + DataManager.data.activeMission.commandPostGPSCoords + "?q=" + DataManager.data.activeMission.commandPostGPSCoords;
+                String alias = "(Command)";
+                if (DataManager.data.activeMission.commandPostName != null || !DataManager.data.activeMission.commandPostName.equals("")){
+                    alias = "(" + DataManager.data.activeMission.commandPostName + ")";
+                }
+                String coords = DataManager.data.activeMission.commandPostGPSCoords;
+                String uri = "geo:" + coords + "?q=" + coords + alias;
                 Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
                 try {
                     startActivity(i);
                 }
                 catch (ActivityNotFoundException e){
-                    uri = "http://maps.google.com/maps?q=" + DataManager.data.activeMission.commandPostGPSCoords;
+                    uri = "http://maps.google.com/maps?q=" + coords + alias;
                     i = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
                     try {
                         startActivity(i);
