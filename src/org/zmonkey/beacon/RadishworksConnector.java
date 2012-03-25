@@ -115,7 +115,8 @@ public class RadishworksConnector {
             Message message = new Message();
             message.what = requestId;
             boolean first = true;
-            while ((line = rd.readLine()) != null) {
+            line = rd.readLine();
+            while (line != null) {
                 if (first){
                     first = false;
                 }
@@ -123,6 +124,7 @@ public class RadishworksConnector {
                     s.append("\n");
                 }
                 s.append(line);
+                line = rd.readLine();
             }
             line = s.toString();
             message.obj = line;
