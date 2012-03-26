@@ -17,6 +17,7 @@
  */
 package org.zmonkey.beacon.data;
 
+import android.graphics.Bitmap;
 import java.io.Serializable;
 import java.util.Vector;
 
@@ -50,6 +51,7 @@ public class Subject implements Storable, Serializable {
     public String gloves;
     public String innerWear;
     public String outerWear;
+    public Bitmap image;
 
     public String bio(){
         StringBuilder s = new StringBuilder();
@@ -194,6 +196,9 @@ public class Subject implements Storable, Serializable {
         s.append(" gloves=" + gloves + "\n");
         s.append(" innerWear=" + innerWear + "\n");
         s.append(" outerWear=" + outerWear + "\n");
+        
+        //TODO: save the image
+        
         return s;
     }
 
@@ -281,6 +286,9 @@ public class Subject implements Storable, Serializable {
                     }
                     else if (line.startsWith(" outerWear=")){
                         outerWear = line.substring(11);
+                    }
+                    else if (line.startsWith(" image=")){
+                        //TODO: read in the image
                     }
                 }
             }
