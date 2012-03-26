@@ -50,7 +50,30 @@ public class Subject implements Storable, Serializable {
     public String gloves;
     public String innerWear;
     public String outerWear;
-    
+
+    public String bio(){
+        StringBuilder s = new StringBuilder();
+
+        if (name != null){
+            s.append(name);
+        }
+        else{
+            s.append("Unknown Name");
+        }
+
+        if (sex != null){
+            s.append(", ");
+            s.append(sex);
+        }
+
+        if (age != null){
+            s.append(", Age ");
+            s.append(age);
+        }
+
+        return s.toString();
+    }
+
     public static Vector<Subject> parseText(String text){
         Vector<Subject> v = new Vector<Subject>();
 
@@ -141,26 +164,6 @@ public class Subject implements Storable, Serializable {
         return v;
     }
     
-    public String toString(){
-        if (name == null){
-            return "";
-        }
-        StringBuilder s = new StringBuilder();
-        s.append(name);
-        
-        if (sex != null){
-            s.append(", ");
-            s.append(sex);
-        }
-        
-        if (age != null){
-            s.append(", Age ");
-            s.append(age);
-        }
-
-        return s.toString();
-    }
-
     @Override
     public StringBuilder store(StringBuilder s) {
         if (s == null){

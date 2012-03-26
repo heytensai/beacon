@@ -68,7 +68,7 @@ public class SubjectsActivity extends Activity {
         //fill in the list
         for (final Subject s : v){
             TextView t = new TextView(this);
-            t.setText(s.toString());
+            t.setText(s.bio());
             t.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
             t.setPadding(10, 10, 10, 10);
 
