@@ -18,8 +18,13 @@
 package org.zmonkey.beacon;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 import org.zmonkey.beacon.data.Subject;
 
 /**
@@ -133,6 +138,13 @@ public class SubjectDetailActivity extends Activity {
             t = (TextView) findViewById(R.id.subjectLastGps);
             if (subject.lastGps != null){
                 t.setText(subject.lastGps);
+                final Subject s = subject;
+                t.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        gpsClicked(s);
+                    }
+                });
             }
             else{
                 t.setText("");
@@ -228,5 +240,29 @@ public class SubjectDetailActivity extends Activity {
         }
     }
 
-
+    private void gpsClicked(Subject subject){
+        if (subject.lastGps == null){
+            return;
+        }
+        String alias = "(Subject)";
+        if (subject.name != null || !subject.name.equals("")){
+            alias = "(" + subject.name + ")";
+        }
+        String coords = subject.lastGps;
+        String uri = "geo:" + coords + "?q=" + coords + alias;
+        Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+        try {
+            startActivity(i);
+        }
+        catch (ActivityNotFoundException e){
+            uri = "http://maps.google.com/maps?q=" + coords + alias;
+            i = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+            try {
+                startActivity(i);
+            }
+            catch (ActivityNotFoundException e2){
+                Toast.makeText(this, "No mapping intent found for " + uri, Toast.LENGTH_LONG).show();
+            }
+        }
+    }
 }
