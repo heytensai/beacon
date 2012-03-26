@@ -248,8 +248,9 @@ public class SubjectDetailActivity extends Activity {
                 }
             });
             if (subject.image != null){
-                //TODO: figure out how wide the image should really be
-                Bitmap bitmap = Bitmap.createScaledBitmap(subject.image, 100, 100, true);
+                //figure out how wide the image should really be
+                int width = image.getWidth();
+                Bitmap bitmap = Bitmap.createScaledBitmap(subject.image, width, subject.image.getHeight(), true);
                 image.setImageBitmap(bitmap);
                 
             }

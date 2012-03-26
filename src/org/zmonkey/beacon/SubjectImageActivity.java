@@ -26,9 +26,10 @@ public class SubjectImageActivity extends Activity {
         ImageView image = (ImageView) findViewById(R.id.subjectImageImage);
         if (subject != null){
             if (subject.image != null){
-                //TODO: scale the image to an appropriate size
-                //Bitmap bitmap = Bitmap.createScaledBitmap(subject.image, 100, 100, true);
-                image.setImageBitmap(subject.image);
+                //scale the image to an appropriate size
+                int width = image.getWidth();
+                Bitmap bitmap = Bitmap.createScaledBitmap(subject.image, width, subject.image.getHeight(), true);
+                image.setImageBitmap(bitmap);
             }
             
             TextView t;
