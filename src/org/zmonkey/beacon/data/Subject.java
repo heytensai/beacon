@@ -81,7 +81,7 @@ public class Subject implements Storable, Serializable {
                 s.lastLocation = a[5];
             }
             if (a[6].trim().length() > 0){
-                s.lastGps = a[6];
+                s.lastGps = a[6].replace(" ", ",");
             }
             if (a[7].trim().length() > 0){
                 s.sex = a[7];
