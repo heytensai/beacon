@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent">
+    <ScrollView
+        android:layout_height="fill_parent"
+        android:layout_width="fill_parent"
+            >
+        <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="vertical"
+                >
+    <ImageView
+            android:layout_height="fill_parent"
+            android:layout_width="fill_parent"
+            android:id="@+id/subjectImageImage"
+            android:src="@drawable/default_subject"
+            android:layout_gravity="top"
+        />
+    <TextView
+            android:id="@+id/subjectImageName"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:text="@string/nodata"
+            android:textSize="@dimen/value_size"
+            android:paddingTop="@dimen/value_padding_top"
+            android:paddingBottom="@dimen/value_padding_bottom"
+            android:paddingLeft="@dimen/value_padding_left"
+            android:paddingRight="@dimen/value_padding_right"
+            />
+    </LinearLayout>
+    </ScrollView>
+</LinearLayout>

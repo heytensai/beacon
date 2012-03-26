@@ -26,6 +26,7 @@
         <activity android:name=".LocationActivity" android:label="Location"/>
         <activity android:name=".SubjectsActivity"/>
         <activity android:name=".SubjectDetailActivity"/>
+        <activity android:name=".SubjectImageActivity"/>
     </application>
     <uses-sdk android:minSdkVersion="3"/>
 </manifest> 

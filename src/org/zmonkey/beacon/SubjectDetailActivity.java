@@ -28,7 +28,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import org.zmonkey.beacon.data.Subject;
-import org.zmonkey.beacon.R;
 
 /**
  * User: corey
@@ -36,13 +35,14 @@ import org.zmonkey.beacon.R;
  * Time: 10:04 PM
  */
 public class SubjectDetailActivity extends Activity {
+    private Subject subject;
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.subjectdetail);
         
         //retrieve subject detail
         Bundle b = getIntent().getExtras();
-        Subject subject = null;
         if (b != null){
             subject = (Subject) b.getSerializable("subject");
         }
@@ -141,11 +141,10 @@ public class SubjectDetailActivity extends Activity {
             t = (TextView) findViewById(R.id.subjectLastGps);
             if (subject.lastGps != null){
                 t.setText(subject.lastGps);
-                final Subject s = subject;
                 t.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        gpsClicked(s);
+                        gpsClicked();
                     }
                 });
             }
@@ -241,16 +240,31 @@ public class SubjectDetailActivity extends Activity {
                 t.setText("");
             }
 
+            ImageView image = (ImageView) findViewById(R.id.subjectImage);
+            image.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    subjectClicked();
+                }
+            });
             if (subject.image != null){
-                ImageView image = (ImageView) findViewById(R.id.subjectImage);
                 //TODO: figure out how wide the image should really be
                 Bitmap bitmap = Bitmap.createScaledBitmap(subject.image, 100, 100, true);
                 image.setImageBitmap(bitmap);
+                
             }
         }
     }
 
-    private void gpsClicked(Subject subject){
+    private void subjectClicked(){
+        Intent intent = new Intent(this, SubjectImageActivity.class);
+        Bundle b = new Bundle();
+        b.putSerializable("subject", subject);
+        intent.putExtras(b);
+        startActivity(intent);
+    }
+
+    private void gpsClicked(){
         if (subject.lastGps == null){
             return;
         }
