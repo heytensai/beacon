@@ -65,29 +65,75 @@ public class Subject implements Storable, Serializable {
 
             Subject s = new Subject();
             s.id = Integer.parseInt(a[0]);
-            s.name = a[1];
-            s.nickname = a[2];
-            s.dateLastSeen = a[3];
-            s.timeLastSeen = a[4];
-            s.lastLocation = a[5];
-            s.lastGps = a[6];
-            s.sex = a[7];
-            s.age = a[8];
-            s.height = a[9];
-            s.weight = a[10];
-            s.eyeColor = a[11];
-            s.hairColor = a[12];
-            s.hairStyle = a[13];
-            s.complexion = a[14];
-            s.build = a[15];
-            s.shirt = a[16];
-            s.pants = a[17];
-            s.jacket = a[18];
-            s.shoes = a[19];
-            s.socks = a[20];
-            s.gloves = a[21];
-            s.innerWear = a[22];
-            s.outerWear = a[23];
+            if (a[1].trim().length() > 0){
+                s.name = a[1];
+            }
+            if (a[2].trim().length() > 0){
+                s.nickname = a[2];
+            }
+            if (a[3].trim().length() > 0){
+                s.dateLastSeen = a[3];
+            }
+            if (a[4].trim().length() > 0){
+                s.timeLastSeen = a[4];
+            }
+            if (a[5].trim().length() > 0){
+                s.lastLocation = a[5];
+            }
+            if (a[6].trim().length() > 0){
+                s.lastGps = a[6];
+            }
+            if (a[7].trim().length() > 0){
+                s.sex = a[7];
+            }
+            if (a[8].trim().length() > 0){
+                s.age = a[8];
+            }
+            if (a[9].trim().length() > 0){
+                s.height = a[9];
+            }
+            if (a[10].trim().length() > 0){
+                s.weight = a[10];
+            }
+            if (a[11].trim().length() > 0){
+                s.eyeColor = a[11];
+            }
+            if (a[12].trim().length() > 0){
+                s.hairColor = a[12];
+            }
+            if (a[13].trim().length() > 0){
+                s.hairStyle = a[13];
+            }
+            if (a[14].trim().length() > 0){
+                s.complexion = a[14];
+            }
+            if (a[15].trim().length() > 0){
+                s.build = a[15];
+            }
+            if (a[16].trim().length() > 0){
+                s.shirt = a[16];
+            }
+            if (a[17].trim().length() > 0){
+                s.pants = a[17];
+            }
+            if (a[18].trim().length() > 0){
+                s.jacket = a[18];
+            }
+            if (a[19].trim().length() > 0){
+                s.shoes = a[19];
+            }
+            if (a[20].trim().length() > 0){
+                s.socks = a[20];
+            }
+            if (a[21].trim().length() > 0){
+                s.gloves = a[21];
+            }
+            if (a[22].trim().length() > 0){
+                s.innerWear = a[22];
+            }
+            if (a[23].trim().length() > 0){
+                s.outerWear = a[23];
+            }
 
             v.add(s);
         }
