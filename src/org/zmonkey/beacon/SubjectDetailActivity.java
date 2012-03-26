@@ -21,6 +21,7 @@ import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -38,9 +39,6 @@ public class SubjectDetailActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.subjectdetail);
-        
-        ImageView image = (ImageView) findViewById(R.id.subjectImage);
-        image.setImageResource(R.drawable.default_subject);
         
         //retrieve subject detail
         Bundle b = getIntent().getExtras();
@@ -241,6 +239,13 @@ public class SubjectDetailActivity extends Activity {
             }
             else{
                 t.setText("");
+            }
+
+            if (subject.image != null){
+                ImageView image = (ImageView) findViewById(R.id.subjectImage);
+                //TODO: figure out how wide the image should really be
+                Bitmap bitmap = Bitmap.createScaledBitmap(subject.image, 100, 100, true);
+                image.setImageBitmap(bitmap);
             }
         }
     }
