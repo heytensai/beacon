@@ -48,7 +48,7 @@ public class SubjectsActivity extends Activity {
         makeSubjectList(DataManager.data.subjects);
     }
 
-    private void makeSubjectList(Vector<Subject> v){
+    public void makeSubjectList(Vector<Subject> v){
         //empty the current list
         LinearLayout layout = (LinearLayout) findViewById(R.id.subjectList);
         if (layout == null){

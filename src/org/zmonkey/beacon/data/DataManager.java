@@ -38,13 +38,17 @@ public class DataManager {
 
     public DataManager(){
         activeMission = new Mission();
+        currentLocation = null;
+        initFields();
+
+        setupCallbackHandler(MainActivity.main.getApplicationContext());
+    }
+
+    private void initFields(){
         subjects = new Vector<Subject>();
         myTeam = new Team();
         pendingUpdates = new Vector<LocationUpdate>();
         pendingClues = new Vector<Clue>();
-        currentLocation = null;
-
-        setupCallbackHandler(MainActivity.main.getApplicationContext());
     }
 
     public Mission activeMission;
@@ -62,6 +66,9 @@ public class DataManager {
     }
 
     public void loadMissionDetails(Context context){
+        //erase any previous config
+        initFields();
+
         if (activeMission == null|| activeMission.number == -1){
             return;
         }
@@ -144,6 +151,7 @@ public class DataManager {
                         break;
                     case RadishworksConnector.REQUEST_SUBJECT_LIST:
                         if (SubjectsActivity.subjects != null){
+                            SubjectsActivity.subjects.makeSubjectList(DataManager.data.subjects);
                         }
                         break;
                 }

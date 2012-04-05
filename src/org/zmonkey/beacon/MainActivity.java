@@ -147,8 +147,10 @@ public class MainActivity extends TabActivity implements LocationListener
                 input.append(s);
             }
             stream.close();
-            DataManager.data.myTeam.load(input.toString());
-            DataManager.data.activeMission.load(input.toString());
+            String saveData = input.toString();
+            DataManager.data.myTeam.load(saveData);
+            DataManager.data.activeMission.load(saveData);
+            DataManager.data.subjects = Subject.loadAll(saveData);
         }
         catch (IOException e){
             //whatever, just give up.
@@ -322,11 +324,21 @@ public class MainActivity extends TabActivity implements LocationListener
                 makeAboutDialog();
                 return true;
             case OPTIONS_REFRESH:
-                DataManager.data.loadMissionDetails(this);
-                DataManager.data.loadSubjects(this);
+                refreshData();
                 return true;
         }
         return false;
+    }
+
+    public void refreshData(){
+        DataManager.data.loadMissionDetails(this);
+        DataManager.data.loadSubjects(this);
+        if (ClueActivity.clue != null){
+            ClueActivity.clue.enableFields(true);
+        }
+        if (SubjectsActivity.subjects != null){
+            SubjectsActivity.subjects.makeSubjectList(DataManager.data.subjects);
+        }
     }
 
     @Override
@@ -374,15 +386,11 @@ public class MainActivity extends TabActivity implements LocationListener
         alert.setItems(missionNames, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int item) {
                 DataManager.data.activeMission.number = missionNumbers[item];
-                TextView t = (TextView)findViewById(R.id.mission);
-                t.setText(missionNames[item]);
                 DataManager.data.activeMission.name = missionNames[item];
+                TextView t = (TextView)findViewById(R.id.mission);
+                t.setText(DataManager.data.activeMission.name);
                 refreshButtons();
-                DataManager.data.loadMissionDetails(MainActivity.this);
-                if (ClueActivity.clue != null){
-                    ClueActivity.clue.enableFields(true);
-                }
-                DataManager.data.loadSubjects(MainActivity.this);
+                refreshData();
             }
         });
         alert.show();
