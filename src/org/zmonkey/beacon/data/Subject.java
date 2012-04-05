@@ -212,8 +212,14 @@ public class Subject implements Storable, Serializable {
         Subject subject = null;
         for (String line : lines){
             if (me){
-                if (!line.equals("class=Subject") && line.startsWith("class=")){
-                    me = false;
+                if (line.startsWith("class=")){
+                    if (line.equals("class=Subject")){
+                        subject = new Subject();
+                        v.add(subject);
+                    }
+                    else{
+                        me = false;
+                    }
                 }
                 else {
                     subject.loadField(line);
