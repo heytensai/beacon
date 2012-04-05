@@ -223,6 +223,7 @@ public class Subject implements Storable, Serializable {
                 if (line.equals("class=Subject")){
                     me = true;
                     subject = new Subject();
+                    v.add(subject);
                 }
             }
         }
