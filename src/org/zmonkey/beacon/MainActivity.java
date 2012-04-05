@@ -44,9 +44,7 @@ import android.widget.Toast;
 import org.zmonkey.beacon.data.DataManager;
 import org.zmonkey.beacon.data.Subject;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 
 public class MainActivity extends TabActivity implements LocationListener
 {
@@ -139,12 +137,11 @@ public class MainActivity extends TabActivity implements LocationListener
         StringBuilder input = new StringBuilder();
         try{
             FileInputStream stream = openFileInput(getString(R.string.settingsfile));
-            int i = 0;
-            byte[] buffer = new byte[4096];
-            while (i > -1){
-                i = stream.read(buffer, 0, 4096);
-                String s = new String(buffer);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+            String s;
+            while ((s = reader.readLine()) != null){
                 input.append(s);
+                input.append("\n");
             }
             stream.close();
             String saveData = input.toString();
