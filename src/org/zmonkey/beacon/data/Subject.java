@@ -173,29 +173,29 @@ public class Subject implements Storable, Serializable {
         }
         s.append("class=Subject\n");
         s.append(" id=" + id + "\n");
-        s.append(" name=" + name + "\n");
-        s.append(" nickname=" + nickname + "\n");
-        s.append(" dateLastSeen=" + dateLastSeen + "\n");
-        s.append(" timeLastSeen=" + timeLastSeen + "\n");
-        s.append(" lastLocation=" + lastLocation + "\n");
-        s.append(" lastGps=" + lastGps + "\n");
-        s.append(" sex=" + sex + "\n");
-        s.append(" age=" + age + "\n");
-        s.append(" height=" + height + "\n");
-        s.append(" weight=" + weight + "\n");
-        s.append(" eyeColor=" + eyeColor + "\n");
-        s.append(" hairColor=" + hairColor + "\n");
-        s.append(" hairStyle=" + hairStyle + "\n");
-        s.append(" complexion=" + complexion + "\n");
-        s.append(" build=" + build + "\n");
-        s.append(" shirt=" + shirt + "\n");
-        s.append(" pants=" + pants + "\n");
-        s.append(" jacket=" + jacket + "\n");
-        s.append(" shoes=" + shoes + "\n");
-        s.append(" socks=" + socks + "\n");
-        s.append(" gloves=" + gloves + "\n");
-        s.append(" innerWear=" + innerWear + "\n");
-        s.append(" outerWear=" + outerWear + "\n");
+        if (name != null) s.append(" name=" + name + "\n");
+        if (nickname != null) s.append(" nickname=" + nickname + "\n");
+        if (dateLastSeen != null) s.append(" dateLastSeen=" + dateLastSeen + "\n");
+        if (timeLastSeen != null) s.append(" timeLastSeen=" + timeLastSeen + "\n");
+        if (lastLocation != null) s.append(" lastLocation=" + lastLocation + "\n");
+        if (lastGps != null) s.append(" lastGps=" + lastGps + "\n");
+        if (sex != null) s.append(" sex=" + sex + "\n");
+        if (age != null) s.append(" age=" + age + "\n");
+        if (height != null) s.append(" height=" + height + "\n");
+        if (weight != null) s.append(" weight=" + weight + "\n");
+        if (eyeColor != null) s.append(" eyeColor=" + eyeColor + "\n");
+        if (hairColor != null) s.append(" hairColor=" + hairColor + "\n");
+        if (hairStyle != null) s.append(" hairStyle=" + hairStyle + "\n");
+        if (complexion != null) s.append(" complexion=" + complexion + "\n");
+        if (build != null) s.append(" build=" + build + "\n");
+        if (shirt != null) s.append(" shirt=" + shirt + "\n");
+        if (pants != null) s.append(" pants=" + pants + "\n");
+        if (jacket != null) s.append(" jacket=" + jacket + "\n");
+        if (shoes != null) s.append(" shoes=" + shoes + "\n");
+        if (socks != null) s.append(" socks=" + socks + "\n");
+        if (gloves != null) s.append(" gloves=" + gloves + "\n");
+        if (innerWear != null) s.append(" innerWear=" + innerWear + "\n");
+        if (outerWear != null) s.append(" outerWear=" + outerWear + "\n");
         
         //TODO: save the image
         
