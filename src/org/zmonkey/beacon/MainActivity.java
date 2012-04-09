@@ -103,7 +103,13 @@ public class MainActivity extends TabActivity implements LocationListener
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         if (prefs == null || prefs.getBoolean("usegps", true)){
             if (locationManager != null){
-                int updateTime = (prefs == null) ? prefs.getInt("gpsUpdateInterval", LOCATION_UPDATE_TIME) : LOCATION_UPDATE_TIME;
+                int updateTime;
+                try {
+                    updateTime = (prefs == null) ? prefs.getInt("gpsUpdateInterval", LOCATION_UPDATE_TIME) : LOCATION_UPDATE_TIME;
+                }
+                catch (NullPointerException e){
+                    updateTime = LOCATION_UPDATE_TIME;
+                }
                 locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, updateTime, LOCATION_UPDATE_DISTANCE, this);
                 locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, updateTime, LOCATION_UPDATE_DISTANCE, this);
                 DataManager.data.currentLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
